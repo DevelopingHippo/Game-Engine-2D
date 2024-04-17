@@ -8,7 +8,7 @@ import java.awt.image.BufferedImage;
 
 public class Player extends DynamicEntity {
 
-
+    private boolean isSprinting;
 
     public Player(ReferenceList ref, String uuid) {
         super(ref, uuid);
@@ -40,19 +40,23 @@ public class Player extends DynamicEntity {
 
 
     public void update() {
-
+        isMoving = false;
         if(ref.upPressed || ref.downPressed || ref.leftPressed || ref.rightPressed){
             if(ref.upPressed){
                 direction = "up";
+                isMoving = true;
             }
             if(ref.downPressed){
                 direction = "down";
+                isMoving = true;
             }
             if(ref.leftPressed){
                 direction = "left";
+                isMoving = true;
             }
             if(ref.rightPressed){
                 direction = "right";
+                isMoving = true;
             }
             switch (direction) {
                 case "up": worldY = worldY - moveSpeed; break;
@@ -60,6 +64,20 @@ public class Player extends DynamicEntity {
                 case "left": worldX = worldX - moveSpeed; break;
                 case "right": worldX = worldX + moveSpeed; break;
             }
+        }
+
+        //ref.enterPressed = false;
+
+        if(ref.shiftPressed){
+            spriteCounter++;
+        }
+        spriteCounter++;
+        if (spriteCounter > spriteFrameTime) {
+            if(spriteNum == 4){
+                spriteNum = 0;
+            }
+            spriteNum++;
+            spriteCounter = 0;
         }
     }
 
@@ -71,9 +89,14 @@ public class Player extends DynamicEntity {
 
         worldX = ref.settings.tileSize * ref.settings.playerDefaultWorldX;
         worldY = ref.settings.tileSize * ref.settings.playerDefaultWorldY;
+        if(isMoving) {
+            image = animation.walkAnimation();
+        }
+        else {
+            image = idle;
+        }
 
-
-
+        g2.drawImage(image, tempScreenX, tempScreenY, null);
 
     }
 
