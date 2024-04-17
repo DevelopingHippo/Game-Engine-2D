@@ -11,12 +11,9 @@ public class Application {
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         window.setResizable(false);
         window.setTitle("2D Game Engine");
-
         Engine engine = new Engine();
         window.add(engine);
-
         window.pack();
-
         window.setLocationRelativeTo(null);
         window.setVisible(true);
         engine.setup();
