@@ -1,5 +1,6 @@
 package engine;
 
+import assets.Asset;
 import engine.helpers.ReferenceList;
 import engine.helpers.Settings;
 
@@ -23,6 +24,7 @@ public class Engine extends JPanel implements Runnable  {
     }
 
     public void setup() {
+        ref.assetManager.spawnAsset("Old Man", 27, 13);
         ref.soundEngine.playMusic("backgroundMusic");
         ref.soundEngine.playEnvironment("Forest_Day");
     }
@@ -54,6 +56,13 @@ public class Engine extends JPanel implements Runnable  {
 
     private void update() {
         ref.player.update();
+
+        for(Asset asset :ref.assetManager.getAllAssets()){
+            if(asset != null) {
+                asset.update();
+            }
+        }
+
     }
 
     public void paintComponent(Graphics g) {

@@ -3,7 +3,7 @@ package engine.helpers;
 import assets.dynamicEntity.player.Player;
 import engine.AssetManager;
 import engine.Engine;
-import engine.Renderer;
+import engine.renderer.Renderer;
 import engine.collision.CollisionChecker;
 import engine.io.UserControls;
 import engine.soundEngine.SoundEngine;
@@ -21,7 +21,7 @@ public class ReferenceList {
     public SoundEngine soundEngine = new SoundEngine(this);
     public CollisionChecker collisionChecker = new CollisionChecker(this);
 
-    public Player player = new Player(this, Utils.generateUUID());
+    public Player player = new Player(this);
 
     public boolean upPressed, downPressed, leftPressed, rightPressed, enterPressed, spacePressed, shiftPressed;
 

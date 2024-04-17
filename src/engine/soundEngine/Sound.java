@@ -12,24 +12,14 @@ import java.util.HashMap;
 public class Sound {
 
     Clip clip;
-    HashMap<String, URL> soundCollection;
+    URL soundFile;
     float previousVolume = 0;
     float currentVolume = -30.0f;
     FloatControl fc;
     boolean mute = false;
 
-    public Sound() {
-
-
-
-        soundCollection = new HashMap<>();
-
-
-        soundCollection.put("backgroundMusic", getClass().getResource("/Sounds/Music/Sweden.wav"));
-        soundCollection.put("Forest_Day", getClass().getResource("/Sounds/Environment/Forest_Day.wav"));
-        soundCollection.put("Forest_Night", getClass().getResource("/Sounds/Environment/Forest_Night.wav"));
-        soundCollection.put("sleep", getClass().getResource("/Sounds/SoundEffects/sleep.wav"));
-
+    public Sound(String filePath) {
+        soundFile = getClass().getResource(filePath);
     }
 
     public void setVolume(float volume) {
@@ -37,9 +27,9 @@ public class Sound {
         fc.setValue(volume);
     }
 
-    public void setFile(String soundName){
+    public void setFile(){
         try {
-            AudioInputStream ais = AudioSystem.getAudioInputStream(soundCollection.get(soundName));
+            AudioInputStream ais = AudioSystem.getAudioInputStream(soundFile);
             clip = AudioSystem.getClip();
             clip.open(ais);
             fc = (FloatControl)clip.getControl(FloatControl.Type.MASTER_GAIN);
@@ -90,6 +80,10 @@ public class Sound {
             fc.setValue(currentVolume);
             mute = false;
         }
+    }
+
+    public void replaceSound(String filepath) {
+        this.soundFile = getClass().getResource(filepath);
     }
 
 }
