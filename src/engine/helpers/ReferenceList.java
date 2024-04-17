@@ -16,7 +16,7 @@ public class ReferenceList {
     public UserControls userControls = new UserControls(this);
     public AssetManager assetManager = new AssetManager(this);
     public World world;
-    public TileManager tileManager;
+    public TileManager tileManager = new TileManager();
     public SoundEngine soundEngine = new SoundEngine(this);
 
     public Player player = new Player(this, Utils.generateUUID());

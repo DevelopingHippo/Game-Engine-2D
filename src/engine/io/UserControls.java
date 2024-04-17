@@ -54,6 +54,9 @@ public class UserControls implements KeyListener {
         if(code == KeyEvent.VK_D) {
             ref.rightPressed = true;
         }
+        if(code == KeyEvent.VK_SHIFT) {
+            ref.shiftPressed = true;
+        }
     }
 
 
@@ -72,6 +75,9 @@ public class UserControls implements KeyListener {
         }
         if(code == KeyEvent.VK_D) {
             ref.rightPressed = false;
+        }
+        if(code == KeyEvent.VK_SHIFT) {
+            ref.shiftPressed = false;
         }
     }
 

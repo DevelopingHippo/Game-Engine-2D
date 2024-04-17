@@ -13,7 +13,8 @@ public class Settings {
     public int playState = 1;
 
     public int playerDefaultWorldX = 1, playerDefaultWorldY = 1;
-
+    public int playerDefaultMoveSpeed = 1;
+    public int playerSprintSpeed = 2;
 
     // SCREEN SETTINGS
     final int originalTileSize = 16; // 16px x 16px tile (Character/Map/Textures)
@@ -23,8 +24,9 @@ public class Settings {
     public final int maxScreenRow = 12;
     public final int screenWidth = tileSize * maxScreenCol; // 768 Pixels
     public final int screenHeight = tileSize * maxScreenRow; // 576 Pixels
-    public int screenX = screenHeight / 2 - (tileSize / 2);
+    public int screenX = screenWidth / 2 - (tileSize / 2);
     public int screenY = screenHeight / 2 - (tileSize / 2);
+
 
 
 }
