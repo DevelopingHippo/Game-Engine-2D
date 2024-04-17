@@ -37,7 +37,6 @@ public class UserControls implements KeyListener {
         if(code == KeyEvent.VK_ENTER) {
             ref.enterPressed = true;
         }
-
     }
 
     private void playStateKeyPressed(int code) {
@@ -56,6 +55,14 @@ public class UserControls implements KeyListener {
         }
         if(code == KeyEvent.VK_SHIFT) {
             ref.shiftPressed = true;
+        }
+        if(code == KeyEvent.VK_F1) {
+            ref.settings.debug = !ref.settings.debug;
+        }
+        if(code == KeyEvent.VK_SPACE) {
+            if(!ref.spacePressed){
+                ref.spacePressed = true;
+            }
         }
     }
 
@@ -78,6 +85,9 @@ public class UserControls implements KeyListener {
         }
         if(code == KeyEvent.VK_SHIFT) {
             ref.shiftPressed = false;
+        }
+        if(code == KeyEvent.VK_SPACE) {
+            ref.spacePressed = false;
         }
     }
 

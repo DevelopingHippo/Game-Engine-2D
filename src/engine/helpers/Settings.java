@@ -11,8 +11,9 @@ public class Settings {
     public int gameState = 1;
     public int titleState = 0;
     public int playState = 1;
+    public boolean debug = false;
 
-    public int playerDefaultWorldX = 1, playerDefaultWorldY = 1;
+    public int playerDefaultWorldX = 24, playerDefaultWorldY = 11;
     public int playerDefaultMoveSpeed = 1;
     public int playerSprintSpeed = 2;
 
@@ -26,7 +27,4 @@ public class Settings {
     public final int screenHeight = tileSize * maxScreenRow; // 576 Pixels
     public int screenX = screenWidth / 2 - (tileSize / 2);
     public int screenY = screenHeight / 2 - (tileSize / 2);
-
-
-
 }

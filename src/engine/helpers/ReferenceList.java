@@ -4,6 +4,7 @@ import assets.dynamicEntity.player.Player;
 import engine.AssetManager;
 import engine.Engine;
 import engine.Renderer;
+import engine.collision.CollisionChecker;
 import engine.io.UserControls;
 import engine.soundEngine.SoundEngine;
 import engine.world.TileManager;
@@ -15,9 +16,10 @@ public class ReferenceList {
     public Settings settings = new Settings();
     public UserControls userControls = new UserControls(this);
     public AssetManager assetManager = new AssetManager(this);
-    public World world;
-    public TileManager tileManager = new TileManager();
+    public World world = new World(this);
+    public TileManager tileManager = new TileManager(this);
     public SoundEngine soundEngine = new SoundEngine(this);
+    public CollisionChecker collisionChecker = new CollisionChecker(this);
 
     public Player player = new Player(this, Utils.generateUUID());
 

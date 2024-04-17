@@ -4,6 +4,7 @@ import assets.Asset;
 import assets.animations.Animation;
 import engine.helpers.ReferenceList;
 
+import java.awt.*;
 import java.awt.image.BufferedImage;
 
 public class DynamicEntity extends Asset {
@@ -17,8 +18,15 @@ public class DynamicEntity extends Asset {
     public int spriteCounter = 0;
     public int spriteFrameTime = 24;
 
+    public boolean collisionOn = false;
+    //public Rectangle attackArea = new Rectangle(0, 0, 0, 0);
+
+
     public DynamicEntity(ReferenceList ref, String uuid) {
         super(ref, uuid);
+        collisionBoxDefaultX = 0;
+        collisionBoxDefaultY = 0;
+        collisionBox = new Rectangle(collisionBoxDefaultX, collisionBoxDefaultY, ref.settings.tileSize, ref.settings.tileSize);
     }
 
 }

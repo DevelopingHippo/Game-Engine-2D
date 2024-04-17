@@ -8,12 +8,15 @@ import java.awt.image.BufferedImage;
 
 public class Player extends DynamicEntity {
 
-    private boolean isSprinting;
+    private boolean isSprinting = false;
 
     public Player(ReferenceList ref, String uuid) {
         super(ref, uuid);
-        worldX = ref.settings.playerDefaultWorldX;
-        worldY = ref.settings.playerDefaultWorldY;
+        worldX = ref.settings.playerDefaultWorldX * ref.settings.tileSize;
+        worldY = ref.settings.playerDefaultWorldY * ref.settings.tileSize;
+        collisionBoxDefaultX = 8;
+        collisionBoxDefaultY = 20;
+        collisionBox = new Rectangle(collisionBoxDefaultX, collisionBoxDefaultY, (int) (ref.settings.tileSize / 1.5), ref.settings.tileSize / 2);
         getPlayerImages();
     }
 
@@ -39,7 +42,7 @@ public class Player extends DynamicEntity {
 
     public void update() {
         isMoving = false;
-        if(ref.upPressed || ref.downPressed || ref.leftPressed || ref.rightPressed){
+        if(ref.upPressed || ref.downPressed || ref.leftPressed || ref.rightPressed || ref.spacePressed) {
             if(ref.upPressed){
                 direction = "up";
                 isMoving = true;
@@ -63,23 +66,28 @@ public class Player extends DynamicEntity {
             else {
                 moveSpeed = ref.settings.playerDefaultMoveSpeed;
             }
-            switch (direction) {
-                case "up": worldY = worldY - moveSpeed; break;
-                case "down": worldY = worldY + moveSpeed; break;
-                case "left": worldX = worldX - moveSpeed; break;
-                case "right": worldX = worldX + moveSpeed; break;
-            }
 
+            collisionOn = false;
+            ref.collisionChecker.checkTile(this);
 
-            spriteCounter++;
-            if (spriteCounter > spriteFrameTime) {
-                if(spriteNum == 4){
-                    spriteNum = 0;
+            if(!collisionOn) {
+                switch (direction) {
+                    case "up": worldY = worldY - moveSpeed; break;
+                    case "down": worldY = worldY + moveSpeed; break;
+                    case "left": worldX = worldX - moveSpeed; break;
+                    case "right": worldX = worldX + moveSpeed; break;
                 }
-                spriteNum++;
-                spriteCounter = 0;
             }
         }
+        spriteCounter++;
+        if (spriteCounter > spriteFrameTime) {
+            if(spriteNum == 4){
+                spriteNum = 0;
+            }
+            spriteNum++;
+            spriteCounter = 0;
+        }
+
         //ref.enterPressed = false;
     }
 
@@ -95,7 +103,12 @@ public class Player extends DynamicEntity {
         else {
             image = idle;
         }
+
         g2.drawImage(image, tempScreenX, tempScreenY, null);
+        if(ref.settings.debug){
+            g2.setColor(Color.red);
+            g2.drawRect(collisionBox.x + tempScreenX, collisionBox.y + tempScreenY, collisionBox.width, collisionBox.height);
+        }
     }
 
 }
