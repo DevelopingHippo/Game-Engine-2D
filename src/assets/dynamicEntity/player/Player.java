@@ -26,7 +26,6 @@ public class Player extends DynamicEntity {
         down2 = Utils.setupImage("/Assets/Player/Walking/down2", ref.settings.tileSize, ref.settings.tileSize);
         down3 = Utils.setupImage("/Assets/Player/Walking/down3", ref.settings.tileSize, ref.settings.tileSize);
 
-
         left1 = Utils.setupImage("/Assets/Player/Walking/left1", ref.settings.tileSize, ref.settings.tileSize);
         left2 = Utils.setupImage("/Assets/Player/Walking/left2", ref.settings.tileSize, ref.settings.tileSize);
         left3 = Utils.setupImage("/Assets/Player/Walking/left3", ref.settings.tileSize, ref.settings.tileSize);
@@ -34,7 +33,6 @@ public class Player extends DynamicEntity {
         right1 = Utils.setupImage("/Assets/Player/Walking/right1", ref.settings.tileSize, ref.settings.tileSize);
         right2 = Utils.setupImage("/Assets/Player/Walking/right2", ref.settings.tileSize, ref.settings.tileSize);
         right3 = Utils.setupImage("/Assets/Player/Walking/right3", ref.settings.tileSize, ref.settings.tileSize);
-
         idle = down1;
     }
 
