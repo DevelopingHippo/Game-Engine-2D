@@ -3,15 +3,18 @@ package engine;
 import assets.Asset;
 import assets.dynamicEntity.monster.MON_GreenSlime;
 import assets.dynamicEntity.npc.NPC_OldMan;
+import assets.dynamicEntity.particle.Particle;
 import assets.staticEntity.Interactable.InteractableEntity;
 import assets.staticEntity.Interactable.OBJ_Door;
 import assets.staticEntity.Interactable.OBJ_Stairs;
 import assets.staticEntity.StaticEntity;
 import engine.helpers.ReferenceList;
 
+import java.awt.*;
 import java.sql.Ref;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Random;
 
 public class AssetManager {
 
@@ -25,6 +28,9 @@ public class AssetManager {
 
     private final ArrayList<InteractableEntity> interactableAssets = new ArrayList<>();
     private final HashMap<String, InteractableEntity> interactableAssetMap = new HashMap<>();
+
+    private final ArrayList<Particle> particleList = new ArrayList<>();
+
 
     public AssetManager(ReferenceList referenceList) {
         this.ref = referenceList;
@@ -42,6 +48,7 @@ public class AssetManager {
     public ArrayList<InteractableEntity> getInteractableAssets() {return interactableAssets;}
     public StaticEntity getStaticByUUID(String uuid){return staticEntityAssetsMap.get(uuid);}
     public ArrayList<StaticEntity> getStaticAssets() {return staticAssets;}
+
 
     public void spawnAsset(String name, int worldX, int worldY) {
         Asset asset = null;
@@ -93,6 +100,12 @@ public class AssetManager {
         interactableAssetMap.put(downstairs.uuid, downstairs);
         staticAssets.add(downstairs);
         staticEntityAssetsMap.put(downstairs.uuid, downstairs);
+    }
+
+    public void spawnParticle(int variation, Asset generator, Color color, int size, int speed, int maxDuration) {}
+
+    public ArrayList<Particle> getParticleList() {
+        return this.particleList;
     }
 
 

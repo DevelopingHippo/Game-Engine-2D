@@ -1,16 +1,20 @@
 package engine;
 
 import assets.Asset;
+import assets.dynamicEntity.particle.Particle;
 import engine.helpers.ReferenceList;
 import engine.helpers.Settings;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.Iterator;
 
 public class Engine extends JPanel implements Runnable  {
 
     public ReferenceList ref = new ReferenceList();
     private Thread engineThread;
+
+    Iterator<Particle> iterParticle;
 
     public Engine() {
         ref.engine = this;
@@ -64,7 +68,18 @@ public class Engine extends JPanel implements Runnable  {
                 asset.update();
             }
         }
-
+        iterParticle = ref.assetManager.getParticleList().iterator();
+        while (iterParticle.hasNext()) {
+            Particle particle = iterParticle.next();
+            if (particle != null) {
+                if (particle.isAlive) {
+                    particle.update();
+                }
+                else {
+                    iterParticle.remove();
+                }
+            }
+        }
     }
 
     public void paintComponent(Graphics g) {

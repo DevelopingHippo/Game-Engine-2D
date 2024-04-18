@@ -33,6 +33,7 @@ public class OBJ_Door extends InteractableEntity {
     public void interact() {
         active = !active;
         collidable = !collidable;
+        ref.soundEngine.playSE("door_open");
     }
 
     public void draw(Graphics2D g2) {

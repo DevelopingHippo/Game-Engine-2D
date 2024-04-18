@@ -1,19 +1,25 @@
 package assets;
 
 import engine.helpers.ReferenceList;
-import engine.helpers.Utils;
-
 import java.awt.*;
+import java.util.UUID;
 
 public class Asset {
 
     public final ReferenceList ref;
     public int worldX = 0, worldY = 0;
-    public final String uuid = Utils.generateUUID();
+    public final String uuid = UUID.randomUUID().toString();
     public String name;
     public boolean collidable = false;
     public Rectangle collisionBox;
     public int collisionBoxDefaultX, collisionBoxDefaultY;
+
+
+    public int particlesGenerated = 0;
+    public int maxParticles = 10;
+    public int particleLockCount = 0;
+    public boolean particleGenerated = false;
+
     public Asset (ReferenceList ref) {
         this.ref = ref;
     }

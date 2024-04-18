@@ -20,6 +20,7 @@ public class SoundEngine {
         soundCollection.put("footsteps", new Sound("/Sounds/SoundEffects/footsteps.wav"));
         soundCollection.put("footsteps_sprinting", new Sound("/Sounds/SoundEffects/footsteps_sprinting.wav"));
         soundCollection.put("stairs", new Sound("/Sounds/SoundEffects/stairs.wav"));
+        soundCollection.put("door_open", new Sound("/Sounds/SoundEffects/door_open.wav"));
     }
 
 

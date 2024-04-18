@@ -5,17 +5,8 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.Objects;
-import java.util.UUID;
 
 public class Utils {
-
-    public static String generateUUID() {
-        UUID uuid = UUID.randomUUID();
-        String token = uuid.toString();
-        System.out.println("Generate UUID: " + token);
-        return token;
-    }
-
 
     public static BufferedImage setupImage(String imagePath, int width, int height) {
         BufferedImage image = null;

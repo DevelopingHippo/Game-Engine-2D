@@ -1,6 +1,7 @@
 package engine.renderer;
 
 import assets.Asset;
+import assets.dynamicEntity.particle.Particle;
 import engine.helpers.ReferenceList;
 
 import java.awt.*;
@@ -31,6 +32,11 @@ public class Renderer {
         for(Asset asset : renderAssetList){
             asset.draw(g2);
         }
+
+        for(Particle particle : ref.assetManager.getParticleList()){
+            particle.draw(g2);
+        }
+
 
         ref.player.draw(g2);
 

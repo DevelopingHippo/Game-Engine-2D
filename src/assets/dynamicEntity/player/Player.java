@@ -1,5 +1,6 @@
 package assets.dynamicEntity.player;
 import assets.dynamicEntity.DynamicEntity;
+import assets.dynamicEntity.particle.Particle;
 import assets.staticEntity.Interactable.InteractableEntity;
 import engine.helpers.ReferenceList;
 import engine.helpers.Utils;
@@ -44,7 +45,26 @@ public class Player extends DynamicEntity {
         idle = down1;
     }
 
+    public void generateGrassParticle() {
+        Particle p1 = new Particle(ref, this, Color.decode("#7bc470"), 10, 1, 24, 1, 1);
+        Particle p2 = new Particle(ref, this, Color.decode("#7bc470"), 10, 1, 24, -1, 1);
+        Particle p3 = new Particle(ref, this, Color.decode("#7bc470"), 10, 1, 24, 1, -1);
+        Particle p4 = new Particle(ref, this, Color.decode("#7bc470"), 10, 1, 24, -1, -1);
+
+        ref.assetManager.getParticleList().add(p1);
+        ref.assetManager.getParticleList().add(p2);
+        ref.assetManager.getParticleList().add(p3);
+        ref.assetManager.getParticleList().add(p4);
+
+        particleGenerated = true;
+    }
+
+
     public void movePlayer() {
+        if(!particleGenerated){
+            generateGrassParticle();
+        }
+
         if(ref.upPressed) {
             worldY = worldY - moveSpeed;
         }
@@ -70,11 +90,19 @@ public class Player extends DynamicEntity {
                 interactLock = 0;
             }
         }
+        if(particleGenerated){
+            particleLockCount++;
+            if(particleLockCount > 72){
+                particleLockCount = 0;
+                particleGenerated = false;
+            }
+        }
+
+
         if(ref.enterPressed){
             if(!interacted) {
                 if(ref.collisionChecker.checkInteractZone()) {
                     interacted = true;
-                    System.out.println("INTERACTED");
                 }
             }
         }
