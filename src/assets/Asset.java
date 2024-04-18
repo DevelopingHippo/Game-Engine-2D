@@ -11,10 +11,9 @@ public class Asset {
     public int worldX = 0, worldY = 0;
     public final String uuid = Utils.generateUUID();
     public String name;
-    public boolean collision = false;
+    public boolean collidable = false;
     public Rectangle collisionBox;
     public int collisionBoxDefaultX, collisionBoxDefaultY;
-
     public Asset (ReferenceList ref) {
         this.ref = ref;
     }
@@ -27,7 +26,6 @@ public class Asset {
     }
 
     public void update() {
-        System.out.println("Updating");
     }
 
     public void draw(Graphics2D g2) {

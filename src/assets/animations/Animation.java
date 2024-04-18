@@ -1,7 +1,5 @@
 package assets.animations;
-
 import assets.dynamicEntity.DynamicEntity;
-
 import java.awt.image.BufferedImage;
 
 public class Animation {

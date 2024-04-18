@@ -64,6 +64,9 @@ public class UserControls implements KeyListener {
                 ref.spacePressed = true;
             }
         }
+        if(code == KeyEvent.VK_ENTER) {
+            ref.enterPressed = true;
+        }
     }
 
 
@@ -88,6 +91,9 @@ public class UserControls implements KeyListener {
         }
         if(code == KeyEvent.VK_SPACE) {
             ref.spacePressed = false;
+        }
+        if(code == KeyEvent.VK_ENTER) {
+            ref.enterPressed = false;
         }
     }
 

@@ -75,7 +75,7 @@ public class TileManager {
             Tile tile = new Tile();
             tile.image = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream(filePath)));
             tile.image = Utils.scaleImage(tile.image, ref.settings.tileSize, ref.settings.tileSize);
-            tile.collision = collision;
+            tile.collidable = collision;
             tiles[i] = tile;
             tileList.put(name, i);
         }

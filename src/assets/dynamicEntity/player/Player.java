@@ -1,8 +1,8 @@
 package assets.dynamicEntity.player;
 import assets.dynamicEntity.DynamicEntity;
+import assets.staticEntity.Interactable.InteractableEntity;
 import engine.helpers.ReferenceList;
 import engine.helpers.Utils;
-
 import java.awt.*;
 import java.awt.image.BufferedImage;
 
@@ -11,6 +11,8 @@ public class Player extends DynamicEntity {
     private boolean isSprinting = false;
     private boolean footstepsSE = false;
     private boolean sprintingSE = false;
+    private boolean interacted = false;
+    private int interactLock = 0;
 
     public Player(ReferenceList ref) {
         super(ref);
@@ -60,6 +62,23 @@ public class Player extends DynamicEntity {
 
     public void update() {
         isMoving = false;
+
+        if(interacted){
+            interactLock++;
+            if(interactLock > 72){
+                interacted = false;
+                interactLock = 0;
+            }
+        }
+        if(ref.enterPressed){
+            if(!interacted) {
+                if(ref.collisionChecker.checkInteractZone()) {
+                    interacted = true;
+                    System.out.println("INTERACTED");
+                }
+            }
+        }
+
         if(ref.upPressed || ref.downPressed || ref.leftPressed || ref.rightPressed || ref.spacePressed) {
             if(ref.upPressed){
                 direction = "up";
@@ -82,6 +101,7 @@ public class Player extends DynamicEntity {
                 isSprinting = true;
                 moveSpeed = ref.settings.playerSprintSpeed;
             }
+
             else {
                 moveSpeed = ref.settings.playerDefaultMoveSpeed;
                 isSprinting = false;
@@ -89,11 +109,14 @@ public class Player extends DynamicEntity {
 
             collisionOn = false;
             ref.collisionChecker.playerCheckTile(this);
+            String collidedEntity = ref.collisionChecker.checkStaticEntity(this, true);
+
+            if(collidedEntity != null){
+                collisionOn = true;
+            }
 
             if(!collisionOn) {
-
                 movePlayer();
-
                 if(!isSprinting && !footstepsSE) {
                     if(sprintingSE){
                         ref.soundEngine.stopSE("footsteps_sprinting");
