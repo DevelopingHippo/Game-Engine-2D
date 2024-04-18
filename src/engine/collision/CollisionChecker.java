@@ -1,9 +1,5 @@
 package engine.collision;
-
-import assets.Asset;
 import assets.dynamicEntity.DynamicEntity;
-import assets.dynamicEntity.player.Player;
-import assets.staticEntity.Interactable.InteractableEntity;
 import engine.helpers.ReferenceList;
 
 import java.util.Objects;
