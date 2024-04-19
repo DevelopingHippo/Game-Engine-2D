@@ -24,8 +24,6 @@ public class UserControls implements KeyListener {
         else if(ref.settings.gameState == ref.settings.titleState) {
             titleStateKeyPressed(code);
         }
-
-
     }
     private void titleStateKeyPressed(int code) {
         if(code == KeyEvent.VK_W) {
@@ -67,6 +65,9 @@ public class UserControls implements KeyListener {
         if(code == KeyEvent.VK_ENTER) {
             ref.enterPressed = true;
         }
+        if(code == KeyEvent.VK_E) {
+            ref.ePressed = true;
+        }
     }
 
 
@@ -94,6 +95,9 @@ public class UserControls implements KeyListener {
         }
         if(code == KeyEvent.VK_ENTER) {
             ref.enterPressed = false;
+        }
+        if(code == KeyEvent.VK_E) {
+            ref.ePressed = false;
         }
     }
 

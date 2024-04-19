@@ -1,7 +1,5 @@
 package assets.dynamicEntity.player;
 import assets.dynamicEntity.DynamicEntity;
-import assets.dynamicEntity.particle.Particle;
-import assets.staticEntity.Interactable.InteractableEntity;
 import engine.helpers.ReferenceList;
 import engine.helpers.Utils;
 import java.awt.*;
@@ -13,6 +11,7 @@ public class Player extends DynamicEntity {
     private boolean footstepsSE = false;
     private boolean sprintingSE = false;
     private boolean interacted = false;
+    private boolean isFishing = false;
     private int interactLock = 0;
 
     public Player(ReferenceList ref) {
@@ -42,27 +41,17 @@ public class Player extends DynamicEntity {
         right1 = Utils.setupImage("/Images/Assets/Player/Walking/right1", ref.settings.tileSize, ref.settings.tileSize);
         right2 = Utils.setupImage("/Images/Assets/Player/Walking/right2", ref.settings.tileSize, ref.settings.tileSize);
         right3 = Utils.setupImage("/Images/Assets/Player/Walking/right3", ref.settings.tileSize, ref.settings.tileSize);
+
+        right_fishing1 = Utils.setupImage("/Images/Assets/Player/Fishing/fishing_right_1", ref.settings.tileSize * 2, ref.settings.tileSize);
+        right_fishing2 = Utils.setupImage("/Images/Assets/Player/Fishing/fishing_right_2", ref.settings.tileSize * 2, ref.settings.tileSize);
+
         idle = down1;
     }
 
-    public void generateGrassParticle() {
-        Particle p1 = new Particle(ref, this, Color.decode("#7bc470"), 10, 1, 24, 1, 1);
-        Particle p2 = new Particle(ref, this, Color.decode("#7bc470"), 10, 1, 24, -1, 1);
-        Particle p3 = new Particle(ref, this, Color.decode("#7bc470"), 10, 1, 24, 1, -1);
-        Particle p4 = new Particle(ref, this, Color.decode("#7bc470"), 10, 1, 24, -1, -1);
-
-        ref.assetManager.getParticleList().add(p1);
-        ref.assetManager.getParticleList().add(p2);
-        ref.assetManager.getParticleList().add(p3);
-        ref.assetManager.getParticleList().add(p4);
-
-        particleGenerated = true;
-    }
-
-
     public void movePlayer() {
         if(!particleGenerated){
-            generateGrassParticle();
+            ref.particleGenerator.generateGrassParticle(this);
+            particleGenerated = true;
         }
 
         if(ref.upPressed) {
@@ -90,19 +79,22 @@ public class Player extends DynamicEntity {
                 interactLock = 0;
             }
         }
-        if(particleGenerated){
+        if(particleGenerated) {
             particleLockCount++;
             if(particleLockCount > 72){
                 particleLockCount = 0;
                 particleGenerated = false;
             }
         }
-
-
-        if(ref.enterPressed){
+        if(ref.ePressed){
             if(!interacted) {
                 if(ref.collisionChecker.checkInteractZone()) {
                     interacted = true;
+                }
+                else if(ref.collisionChecker.checkInteractTile()) {
+                    interacted = true;
+                    isFishing = true;
+                    System.out.println("FISHING");
                 }
             }
         }
@@ -129,7 +121,6 @@ public class Player extends DynamicEntity {
                 isSprinting = true;
                 moveSpeed = ref.settings.playerSprintSpeed;
             }
-
             else {
                 moveSpeed = ref.settings.playerDefaultMoveSpeed;
                 isSprinting = false;
@@ -192,6 +183,9 @@ public class Player extends DynamicEntity {
         int tempScreenY = ref.settings.screenY;
 
         if(isMoving) { image = animation.walkAnimation3f(); }
+        else if(isFishing) {
+            image = animation.fishingAnimation();
+        }
         else { image = animation.idleAnimation(); }
 
         g2.drawImage(image, tempScreenX, tempScreenY, null);

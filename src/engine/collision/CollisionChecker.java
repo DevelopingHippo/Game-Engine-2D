@@ -177,4 +177,54 @@ public class CollisionChecker {
         }
         return interact;
     }
+
+    public boolean checkInteractTile() {
+        boolean interact = false;
+        int entityLeftWorldX = ref.player.worldX + ref.player.collisionBox.x;
+        int entityRightWorldX = ref.player.worldX + ref.player.collisionBox.x + ref.player.collisionBox.width;
+        int entityTopWorldY = ref.player.worldY + ref.player.collisionBox.y;
+        int entityBottomWorldY = ref.player.worldY + ref.player.collisionBox.y + ref.player.collisionBox.height;
+
+        int entityLeftCol = entityLeftWorldX / ref.settings.tileSize;
+        int entityRightCol = entityRightWorldX / ref.settings.tileSize;
+        int entityTopRow = entityTopWorldY / ref.settings.tileSize;
+        int entityBottomRow = entityBottomWorldY / ref.settings.tileSize;
+
+        int tileNum1, tileNum2;
+
+        if(ref.upPressed){
+            entityTopRow = (entityTopWorldY - ref.player.moveSpeed) / ref.settings.tileSize;
+            tileNum1 = ref.tileManager.mapTileNum[entityLeftCol][entityTopRow];
+            tileNum2 = ref.tileManager.mapTileNum[entityRightCol][entityTopRow];
+            if(ref.tileManager.tiles[tileNum1].fishable || ref.tileManager.tiles[tileNum2].fishable) {
+                return true;
+            }
+        }
+        if(ref.downPressed) {
+            entityBottomRow = (entityBottomWorldY + ref.player.moveSpeed) / ref.settings.tileSize;
+            tileNum1 = ref.tileManager.mapTileNum[entityLeftCol][entityBottomRow];
+            tileNum2 = ref.tileManager.mapTileNum[entityRightCol][entityBottomRow];
+            if (ref.tileManager.tiles[tileNum1].fishable || ref.tileManager.tiles[tileNum2].fishable) {
+                return true;            }
+        }
+        if(ref.leftPressed) {
+            entityLeftCol = (entityLeftWorldX - ref.player.moveSpeed) / ref.settings.tileSize;
+            tileNum1 = ref.tileManager.mapTileNum[entityLeftCol][entityTopRow];
+            tileNum2 = ref.tileManager.mapTileNum[entityLeftCol][entityBottomRow];
+            if (ref.tileManager.tiles[tileNum1].fishable || ref.tileManager.tiles[tileNum2].fishable) {
+                return true;            }
+        }
+        if(ref.rightPressed) {
+            entityRightCol = (entityRightWorldX + ref.player.moveSpeed) / ref.settings.tileSize;
+            tileNum1 = ref.tileManager.mapTileNum[entityRightCol][entityTopRow];
+            tileNum2 = ref.tileManager.mapTileNum[entityRightCol][entityBottomRow];
+            if (ref.tileManager.tiles[tileNum1].fishable || ref.tileManager.tiles[tileNum2].fishable) {
+                return true;
+            }
+        }
+
+        return interact;
+    }
+
+
 }

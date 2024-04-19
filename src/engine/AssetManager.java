@@ -1,6 +1,7 @@
 package engine;
 
 import assets.Asset;
+import assets.dynamicEntity.animal.ANML_Ollie;
 import assets.dynamicEntity.monster.MON_GreenSlime;
 import assets.dynamicEntity.npc.NPC_OldMan;
 import assets.dynamicEntity.particle.Particle;
@@ -11,10 +12,8 @@ import assets.staticEntity.StaticEntity;
 import engine.helpers.ReferenceList;
 
 import java.awt.*;
-import java.sql.Ref;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Random;
 
 public class AssetManager {
 
@@ -60,6 +59,11 @@ public class AssetManager {
                 break;
             case "Green Slime":
                 asset = new MON_GreenSlime(ref);
+                asset.worldX = worldX * ref.settings.tileSize;
+                asset.worldY = worldY * ref.settings.tileSize;
+                break;
+            case "Ollie":
+                asset = new ANML_Ollie(ref);
                 asset.worldX = worldX * ref.settings.tileSize;
                 asset.worldY = worldY * ref.settings.tileSize;
                 break;

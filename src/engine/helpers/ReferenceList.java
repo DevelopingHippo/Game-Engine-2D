@@ -1,5 +1,6 @@
 package engine.helpers;
 
+import assets.dynamicEntity.particle.ParticleGenerator;
 import assets.dynamicEntity.player.Player;
 import engine.AssetManager;
 import engine.Engine;
@@ -20,9 +21,10 @@ public class ReferenceList {
     public TileManager tileManager = new TileManager(this);
     public SoundEngine soundEngine = new SoundEngine(this);
     public CollisionChecker collisionChecker = new CollisionChecker(this);
+    public ParticleGenerator particleGenerator = new ParticleGenerator(this);
 
     public Player player = new Player(this);
 
-    public boolean upPressed, downPressed, leftPressed, rightPressed, enterPressed, spacePressed, shiftPressed;
+    public boolean upPressed, downPressed, leftPressed, rightPressed, enterPressed, spacePressed, shiftPressed, ePressed;
 
 }

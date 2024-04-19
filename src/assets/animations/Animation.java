@@ -75,6 +75,19 @@ public class Animation {
         return image;
     }
 
+    public BufferedImage fishingAnimation() {
+        BufferedImage image = null;
+
+        if (entity.spriteNum == 1) { image = entity.right_fishing1; }
+        if (entity.spriteNum == 2) { image = entity.right_fishing1; }
+        if (entity.spriteNum == 3) { image = entity.right_fishing1; }
+        if (entity.spriteNum == 4) { image = entity.right_fishing2; }
+
+        return image;
+    }
+
+
+
     public BufferedImage idleAnimation() {
         return switch (entity.direction) {
             case "up" -> entity.up1;

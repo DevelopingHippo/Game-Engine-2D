@@ -21,13 +21,16 @@ public class TileManager {
     ArrayList<String> fileNames = new ArrayList<>();
     ArrayList<String> collisionStatus = new ArrayList<>();
 
+
+    ArrayList<String> fishableTiles = new ArrayList<>();
+
     public TileManager(ReferenceList ref) {
         this.ref = ref;
+        fillFishableTiles();
         InputStream is = getClass().getResourceAsStream(ref.world.tile_data_path);
         assert is != null;
         BufferedReader br = new BufferedReader(new InputStreamReader(is));
         String line;
-
         try {
             while((line = br.readLine()) != null) {
                 fileNames.add(line);
@@ -41,6 +44,7 @@ public class TileManager {
         tiles = new Tile[fileNames.size()];
         tileList = new HashMap<>();
         is = getClass().getResourceAsStream(ref.world.map_path);
+        assert is != null;
         br = new BufferedReader(new InputStreamReader(is));
         try {
             line = br.readLine();
@@ -56,6 +60,18 @@ public class TileManager {
         loadMap();
     }
 
+    private void fillFishableTiles() {
+        fishableTiles.add("020.png");
+        fishableTiles.add("021.png");
+        fishableTiles.add("022.png");
+        fishableTiles.add("023.png");
+        fishableTiles.add("024.png");
+        fishableTiles.add("025.png");
+        fishableTiles.add("025.png");
+        fishableTiles.add("027.png");
+    }
+
+
     public void getTileImage() {
         for(int i = 0; i < fileNames.size(); i++) {
             String fileName;
@@ -69,13 +85,21 @@ public class TileManager {
     }
 
     public void setup(int i, String name, boolean collision) {
-
         try {
             String filePath = "/World/Tiles/images/" + name;
             Tile tile = new Tile();
             tile.image = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream(filePath)));
             tile.image = Utils.scaleImage(tile.image, ref.settings.tileSize, ref.settings.tileSize);
             tile.collidable = collision;
+
+            for(String fishable : fishableTiles){
+                if (name.equals(fishable)) {
+                    tile.fishable = true;
+                    tile.interactable = true;
+                    break;
+                }
+            }
+
             tiles[i] = tile;
             tileList.put(name, i);
         }
@@ -137,10 +161,12 @@ public class TileManager {
                 worldCol = 0;
                 worldRow++;
             }
-//            if(game.ui.debug) {
-//                g2.setColor(Color.red);
-//                g2.drawRect(screenX, screenY, game.tileSize, game.tileSize);
-//            }
+            if(ref.settings.debug) {
+                if(tiles[tileNum].fishable) {
+                    g2.setColor(Color.green);
+                    g2.drawRect(screenX + tiles[tileNum].interactZone.x, screenY + tiles[tileNum].interactZone.y, tiles[tileNum].interactZone.width, tiles[tileNum].interactZone.height);
+                }
+            }
         }
     }
 }
