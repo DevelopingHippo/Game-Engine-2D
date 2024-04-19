@@ -27,13 +27,28 @@ public class UserControls implements KeyListener {
     }
     private void titleStateKeyPressed(int code) {
         if(code == KeyEvent.VK_W) {
-            ref.upPressed = true;
+            ref.ui.commandNum--;
+            if(ref.ui.commandNum < 0){
+                ref.ui.commandNum = 2;
+            }
         }
         if(code == KeyEvent.VK_S) {
-            ref.downPressed = true;
+            ref.ui.commandNum++;
+            if(ref.ui.commandNum > 2){
+                ref.ui.commandNum = 0;
+            }
         }
         if(code == KeyEvent.VK_ENTER) {
-            ref.enterPressed = true;
+            if(ref.ui.commandNum == 0){
+                ref.settings.gameState = ref.settings.playState;
+                ref.settings.gameDrawState = ref.settings.playState;
+            }
+            if(ref.ui.commandNum == 1){
+                System.exit(0);
+            }
+            if(ref.ui.commandNum == 2) {
+                System.exit(0);
+            }
         }
     }
 

@@ -1,7 +1,6 @@
 package assets.dynamicEntity.player;
 import assets.dynamicEntity.DynamicEntity;
 import engine.helpers.ReferenceList;
-import engine.helpers.Utils;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 
@@ -12,55 +11,31 @@ public class Player extends DynamicEntity {
     private boolean sprintingSE = false;
     private boolean interacted = false;
     private boolean isFishing = false;
+    private boolean caughtFish = false;
+    private boolean receiveFish = false;
+    private int receiveFishLock = 0;
+    private int fishLock = 0;
+    private int fishLockCount = 0;
     private int interactLock = 0;
+    public PlayerActions actions;
 
     public Player(ReferenceList ref) {
         super(ref);
         name = "Player";
+        actions = new PlayerActions(ref, this);
         worldX = ref.settings.playerDefaultWorldX * ref.settings.tileSize;
         worldY = ref.settings.playerDefaultWorldY * ref.settings.tileSize;
         collisionBoxDefaultX = 8;
         collisionBoxDefaultY = 20;
         collisionBox = new Rectangle(collisionBoxDefaultX, collisionBoxDefaultY, (int) (ref.settings.tileSize / 1.5), ref.settings.tileSize / 2);
-        getPlayerImages();
+        actions.getPlayerImages();
     }
 
-    private void getPlayerImages() {
-        up1 = Utils.setupImage("/Images/Assets/Player/Walking/up1", ref.settings.tileSize, ref.settings.tileSize);
-        up2 = Utils.setupImage("/Images/Assets/Player/Walking/up2", ref.settings.tileSize, ref.settings.tileSize);
-        up3 = Utils.setupImage("/Images/Assets/Player/Walking/up3", ref.settings.tileSize, ref.settings.tileSize);
 
-        down1 = Utils.setupImage("/Images/Assets/Player/Walking/down1", ref.settings.tileSize, ref.settings.tileSize);
-        down2 = Utils.setupImage("/Images/Assets/Player/Walking/down2", ref.settings.tileSize, ref.settings.tileSize);
-        down3 = Utils.setupImage("/Images/Assets/Player/Walking/down3", ref.settings.tileSize, ref.settings.tileSize);
-
-        left1 = Utils.setupImage("/Images/Assets/Player/Walking/left1", ref.settings.tileSize, ref.settings.tileSize);
-        left2 = Utils.setupImage("/Images/Assets/Player/Walking/left2", ref.settings.tileSize, ref.settings.tileSize);
-        left3 = Utils.setupImage("/Images/Assets/Player/Walking/left3", ref.settings.tileSize, ref.settings.tileSize);
-
-        right1 = Utils.setupImage("/Images/Assets/Player/Walking/right1", ref.settings.tileSize, ref.settings.tileSize);
-        right2 = Utils.setupImage("/Images/Assets/Player/Walking/right2", ref.settings.tileSize, ref.settings.tileSize);
-        right3 = Utils.setupImage("/Images/Assets/Player/Walking/right3", ref.settings.tileSize, ref.settings.tileSize);
-
-        up_fishing1 = Utils.setupImage("/Images/Assets/Player/Fishing/fishing_up_1", ref.settings.tileSize, ref.settings.tileSize * 2);
-        up_fishing2 = Utils.setupImage("/Images/Assets/Player/Fishing/fishing_up_2", ref.settings.tileSize, ref.settings.tileSize * 2);
-
-        down_fishing1 = Utils.setupImage("/Images/Assets/Player/Fishing/fishing_down_1", ref.settings.tileSize, ref.settings.tileSize * 2);
-        down_fishing2 = Utils.setupImage("/Images/Assets/Player/Fishing/fishing_down_2", ref.settings.tileSize, ref.settings.tileSize * 2);
-
-        left_fishing1 = Utils.setupImage("/Images/Assets/Player/Fishing/fishing_left_1", ref.settings.tileSize * 2, ref.settings.tileSize);
-        left_fishing2 = Utils.setupImage("/Images/Assets/Player/Fishing/fishing_left_2", ref.settings.tileSize * 2, ref.settings.tileSize);
-
-        right_fishing1 = Utils.setupImage("/Images/Assets/Player/Fishing/fishing_right_1", ref.settings.tileSize * 2, ref.settings.tileSize);
-        right_fishing2 = Utils.setupImage("/Images/Assets/Player/Fishing/fishing_right_2", ref.settings.tileSize * 2, ref.settings.tileSize);
-
-        idle = down1;
-    }
 
     public void movePlayer() {
         if(!particleGenerated){
             ref.particleGenerator.generateGrassParticle(this);
-            particleGenerated = true;
         }
         if(ref.upPressed) {
             worldY = worldY - moveSpeed;
@@ -76,9 +51,7 @@ public class Player extends DynamicEntity {
         }
     }
 
-
-    public void update() {
-        isMoving = false;
+    public void counterIncrease() {
         if(interacted){
             interactLock++;
             if(interactLock > 72){
@@ -93,7 +66,25 @@ public class Player extends DynamicEntity {
                 particleGenerated = false;
             }
         }
-        if(ref.ePressed){
+        if(receiveFish){
+            receiveFishLock++;
+            if(isMoving){
+                receiveFishLock = 0;
+                receiveFish = false;
+            }
+            else if(receiveFishLock > 288){
+                receiveFishLock = 0;
+                receiveFish = false;
+            }
+        }
+    }
+
+
+    public void update() {
+        isMoving = false;
+        counterIncrease();
+
+        if(ref.ePressed) {
             if(!interacted) {
                 if(ref.collisionChecker.checkInteractZone()) {
                     interacted = true;
@@ -101,6 +92,31 @@ public class Player extends DynamicEntity {
                 else if(ref.collisionChecker.checkInteractTile()) {
                     interacted = true;
                     isFishing = true;
+                }
+            }
+        }
+
+        if(isFishing) {
+            if(caughtFish){
+                if(!particleGenerated){
+                    ref.particleGenerator.generateFishSplash(this);
+                }
+                fishLockCount++;
+                if(ref.ePressed && !receiveFish){
+                    receiveFish = true;
+                    fishLockCount = 0;
+                    caughtFish = false;
+                    System.out.println("RECEIVED A FISH");
+                }
+                if(fishLockCount > 144){
+                    fishLockCount = 0;
+                    caughtFish = false;
+                }
+            }
+            else {
+                caughtFish = actions.catchingFish();
+                if(caughtFish) {
+                    System.out.println("A FISH IS BITING");
                 }
             }
         }
@@ -174,21 +190,14 @@ public class Player extends DynamicEntity {
                 sprintingSE = false;
             }
         }
-        spriteCounter++;
-        if (spriteCounter > spriteFrameTime) {
-            if(spriteNum == 4){
-                spriteNum = 0;
-            }
-            spriteNum++;
-            spriteCounter = 0;
-        }
 
+        animationFrames();
         //ref.enterPressed = false;
     }
 
 
     public void draw(Graphics2D g2) {
-        BufferedImage image = null;
+        BufferedImage image;
         int tempScreenX = ref.settings.screenX;
         int tempScreenY = ref.settings.screenY;
 
@@ -202,7 +211,10 @@ public class Player extends DynamicEntity {
             else if(direction.equals("left")) {
                 tempScreenX = ref.settings.screenX - ref.settings.tileSize;
             }
-            image = animation.fishingAnimation();
+            image = animation.fishingAnimation(caughtFish);
+            if(receiveFish){
+                image = animation.receiveFish();
+            }
         }
         else { image = animation.idleAnimation(); }
 

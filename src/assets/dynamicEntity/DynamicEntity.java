@@ -15,12 +15,13 @@ public class DynamicEntity extends Asset {
     public int moveSpeed = 1;
     public BufferedImage idle, up1, up2, up3, down1, down2, down3, left1, left2, left3, right1, right2, right3;
     public BufferedImage  up_fishing1, up_fishing2, down_fishing1, down_fishing2, left_fishing1, left_fishing2, right_fishing1, right_fishing2;
+    public BufferedImage receiveGoldfish;
     public String direction = "idle";
     public Animation animation = new Animation(this);
     public boolean isMoving = false;
     public int spriteNum = 1;
     public int spriteCounter = 0;
-    public int spriteFrameTime = 24;
+    public int spriteFrameTime = 36;
 
     public int actionLockCounter = 0;
 
@@ -47,6 +48,18 @@ public class DynamicEntity extends Asset {
             actionLockCounter = 0;
         }
     }
+
+    public void animationFrames() {
+        spriteCounter++;
+        if (spriteCounter > spriteFrameTime) {
+            if(spriteNum == 4){
+                spriteNum = 0;
+            }
+            spriteNum++;
+            spriteCounter = 0;
+        }
+    }
+
 
     public void moveDynamicEntity() {
 
@@ -91,14 +104,7 @@ public class DynamicEntity extends Asset {
         if(!collisionOn){
             moveDynamicEntity();
         }
-        spriteCounter++;
-        if (spriteCounter > spriteFrameTime) {
-            if(spriteNum == 4){
-                spriteNum = 0;
-            }
-            spriteNum++;
-            spriteCounter = 0;
-        }
+        animationFrames();
     }
 
     public void draw(Graphics2D g2) {

@@ -42,17 +42,7 @@ public class ANML_Ollie extends DynamicEntity {
         direction = ref.player.direction;
         this.worldX = ref.player.worldX + 25;
         this.worldY = ref.player.worldY - 25;
-
-        spriteCounter++;
-        if (spriteCounter > spriteFrameTime) {
-            if(spriteNum == 4){
-                spriteNum = 0;
-            }
-            spriteNum++;
-            spriteCounter = 0;
-        }
-
-
+        animationFrames();
     }
 
 
@@ -69,7 +59,6 @@ public class ANML_Ollie extends DynamicEntity {
             else {
                 image = animation.idleAnimation();
             }
-
             g2.drawImage(image, screenX, screenY, ref.settings.tileSize, ref.settings.tileSize, null);
             if (ref.settings.debug) {
                 g2.setColor(Color.red);

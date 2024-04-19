@@ -39,6 +39,7 @@ public class Renderer {
 
 
         ref.player.draw(g2);
+        ref.ui.draw(g2);
 
         renderAssetList.clear();
 

@@ -34,6 +34,8 @@ public class Asset {
     public void update() {
     }
 
+
+
     public void draw(Graphics2D g2) {
         System.out.println("Drawing Asset");
     }

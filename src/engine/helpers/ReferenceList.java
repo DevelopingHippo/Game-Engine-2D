@@ -7,6 +7,7 @@ import engine.Engine;
 import engine.renderer.Renderer;
 import engine.collision.CollisionChecker;
 import engine.io.UserControls;
+import engine.renderer.ui.UI;
 import engine.soundEngine.SoundEngine;
 import engine.world.TileManager;
 import engine.world.World;
@@ -22,6 +23,7 @@ public class ReferenceList {
     public SoundEngine soundEngine = new SoundEngine(this);
     public CollisionChecker collisionChecker = new CollisionChecker(this);
     public ParticleGenerator particleGenerator = new ParticleGenerator(this);
+    public UI ui = new UI(this);
 
     public Player player = new Player(this);
 

@@ -8,9 +8,14 @@ public class Settings {
 
     public String backgroundColor = "#3B8FCA";
 
-    public int gameState = 1;
+    public int gameState = 0;
     public int titleState = 0;
     public int playState = 1;
+    public int gameDrawState = 0;
+    public int titleDrawState = 0;
+    public int playDrawState = 1;
+    public int characterDrawState = 3;
+
     public boolean debug = false;
 
     public int playerDefaultWorldX = 24, playerDefaultWorldY = 11;

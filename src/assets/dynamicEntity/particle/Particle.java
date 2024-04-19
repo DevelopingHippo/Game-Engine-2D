@@ -20,15 +20,22 @@ public class Particle extends DynamicEntity {
     public boolean isAlive;
     public int speed;
 
-    public Particle(ReferenceList ref, Asset generator, Color color, int size, int speed, int maxDuration, int xd, int yd) {
+    public Particle(ReferenceList ref, Asset generator, Color color, int size, int speed, int maxDuration, int xd, int yd, int adjustedWorldX, int adjustedWorldY) {
         super(ref);
         this.generator = generator;
         this.color = color;
         this.size = size;
         this.xd = xd;
         this.yd = yd;
-        worldX = generator.worldX + generator.collisionBoxDefaultX;
-        worldY = generator.worldY + generator.collisionBoxDefaultY;
+
+        if(adjustedWorldX == 0 && adjustedWorldY == 0){
+            worldX = generator.worldX + generator.collisionBoxDefaultX;
+            worldY = generator.worldY + generator.collisionBoxDefaultY;
+        }
+        else {
+            worldX = adjustedWorldX;
+            worldY = adjustedWorldY;
+        }
         isAlive = true;
         this.durationMax = maxDuration;
         this.durationLeft = maxDuration;
@@ -37,8 +44,8 @@ public class Particle extends DynamicEntity {
 
     public void update() {
         durationLeft--;
-        worldX += xd*speed;
-        worldY += yd*speed;
+        worldX += xd* speed;
+        worldY += yd* speed;
         if(durationLeft == 0){
             isAlive = false;
         }
