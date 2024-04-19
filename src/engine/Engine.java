@@ -30,7 +30,7 @@ public class Engine extends JPanel implements Runnable  {
     public void setup() {
         ref.assetManager.spawnAsset("Old Man", 27, 13);
         ref.assetManager.spawnAsset("Door", 11, 27);
-        ref.assetManager.spawnAsset("Ollie", 26, 11);
+        //ref.assetManager.spawnAsset("Ollie", 26, 11);
 
         ref.assetManager.spawnStairs(12, 21, 12, 238);
         ref.soundEngine.playMusic("backgroundMusic");

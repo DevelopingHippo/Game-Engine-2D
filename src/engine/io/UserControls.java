@@ -39,6 +39,13 @@ public class UserControls implements KeyListener {
 
     private void playStateKeyPressed(int code) {
 
+        if(code == KeyEvent.VK_E) {
+            ref.ePressed = true;
+        }
+        if(code == KeyEvent.VK_F) {
+            ref.fPressed = true;
+        }
+
         if(code == KeyEvent.VK_W) {
             ref.upPressed = true;
         }
@@ -65,9 +72,7 @@ public class UserControls implements KeyListener {
         if(code == KeyEvent.VK_ENTER) {
             ref.enterPressed = true;
         }
-        if(code == KeyEvent.VK_E) {
-            ref.ePressed = true;
-        }
+
     }
 
 
@@ -75,6 +80,13 @@ public class UserControls implements KeyListener {
     @Override
     public void keyReleased(KeyEvent e) {
         int code = e.getKeyCode();
+
+        if(code == KeyEvent.VK_E) {
+            ref.ePressed = false;
+        }
+        if(code == KeyEvent.VK_F) {
+            ref.fPressed = false;
+        }
         if(code == KeyEvent.VK_W) {
             ref.upPressed = false;
         }
@@ -96,9 +108,7 @@ public class UserControls implements KeyListener {
         if(code == KeyEvent.VK_ENTER) {
             ref.enterPressed = false;
         }
-        if(code == KeyEvent.VK_E) {
-            ref.ePressed = false;
-        }
+
     }
 
 

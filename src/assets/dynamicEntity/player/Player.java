@@ -42,8 +42,15 @@ public class Player extends DynamicEntity {
         right2 = Utils.setupImage("/Images/Assets/Player/Walking/right2", ref.settings.tileSize, ref.settings.tileSize);
         right3 = Utils.setupImage("/Images/Assets/Player/Walking/right3", ref.settings.tileSize, ref.settings.tileSize);
 
+        up_fishing1 = Utils.setupImage("/Images/Assets/Player/Fishing/fishing_up_1", ref.settings.tileSize, ref.settings.tileSize * 2);
+        up_fishing2 = Utils.setupImage("/Images/Assets/Player/Fishing/fishing_up_2", ref.settings.tileSize, ref.settings.tileSize * 2);
+
+        left_fishing1 = Utils.setupImage("/Images/Assets/Player/Fishing/fishing_left_1", ref.settings.tileSize * 2, ref.settings.tileSize);
+        left_fishing2 = Utils.setupImage("/Images/Assets/Player/Fishing/fishing_left_2", ref.settings.tileSize * 2, ref.settings.tileSize);
+
         right_fishing1 = Utils.setupImage("/Images/Assets/Player/Fishing/fishing_right_1", ref.settings.tileSize * 2, ref.settings.tileSize);
         right_fishing2 = Utils.setupImage("/Images/Assets/Player/Fishing/fishing_right_2", ref.settings.tileSize * 2, ref.settings.tileSize);
+
 
         idle = down1;
     }
@@ -53,7 +60,6 @@ public class Player extends DynamicEntity {
             ref.particleGenerator.generateGrassParticle(this);
             particleGenerated = true;
         }
-
         if(ref.upPressed) {
             worldY = worldY - moveSpeed;
         }
@@ -71,7 +77,6 @@ public class Player extends DynamicEntity {
 
     public void update() {
         isMoving = false;
-
         if(interacted){
             interactLock++;
             if(interactLock > 72){
@@ -94,7 +99,6 @@ public class Player extends DynamicEntity {
                 else if(ref.collisionChecker.checkInteractTile()) {
                     interacted = true;
                     isFishing = true;
-                    System.out.println("FISHING");
                 }
             }
         }
@@ -132,6 +136,10 @@ public class Player extends DynamicEntity {
 
             if(collidedEntity != null){
                 collisionOn = true;
+            }
+
+            if(isMoving){
+                isFishing = false;
             }
 
             if(!collisionOn) {
@@ -184,6 +192,14 @@ public class Player extends DynamicEntity {
 
         if(isMoving) { image = animation.walkAnimation3f(); }
         else if(isFishing) {
+
+            if(direction.equals("up")){
+                tempScreenY = ref.settings.screenY - ref.settings.tileSize;
+
+            }
+            else if(direction.equals("left")) {
+                tempScreenX = ref.settings.screenX - ref.settings.tileSize;
+            }
             image = animation.fishingAnimation();
         }
         else { image = animation.idleAnimation(); }

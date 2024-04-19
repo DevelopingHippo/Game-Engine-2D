@@ -192,7 +192,7 @@ public class CollisionChecker {
 
         int tileNum1, tileNum2;
 
-        if(ref.upPressed){
+        if(Objects.equals(ref.player.direction, "up")){
             entityTopRow = (entityTopWorldY - ref.player.moveSpeed) / ref.settings.tileSize;
             tileNum1 = ref.tileManager.mapTileNum[entityLeftCol][entityTopRow];
             tileNum2 = ref.tileManager.mapTileNum[entityRightCol][entityTopRow];
@@ -200,21 +200,21 @@ public class CollisionChecker {
                 return true;
             }
         }
-        if(ref.downPressed) {
+        if(Objects.equals(ref.player.direction, "down")) {
             entityBottomRow = (entityBottomWorldY + ref.player.moveSpeed) / ref.settings.tileSize;
             tileNum1 = ref.tileManager.mapTileNum[entityLeftCol][entityBottomRow];
             tileNum2 = ref.tileManager.mapTileNum[entityRightCol][entityBottomRow];
             if (ref.tileManager.tiles[tileNum1].fishable || ref.tileManager.tiles[tileNum2].fishable) {
                 return true;            }
         }
-        if(ref.leftPressed) {
+        if(Objects.equals(ref.player.direction, "left")) {
             entityLeftCol = (entityLeftWorldX - ref.player.moveSpeed) / ref.settings.tileSize;
             tileNum1 = ref.tileManager.mapTileNum[entityLeftCol][entityTopRow];
             tileNum2 = ref.tileManager.mapTileNum[entityLeftCol][entityBottomRow];
             if (ref.tileManager.tiles[tileNum1].fishable || ref.tileManager.tiles[tileNum2].fishable) {
                 return true;            }
         }
-        if(ref.rightPressed) {
+        if(Objects.equals(ref.player.direction, "right")) {
             entityRightCol = (entityRightWorldX + ref.player.moveSpeed) / ref.settings.tileSize;
             tileNum1 = ref.tileManager.mapTileNum[entityRightCol][entityTopRow];
             tileNum2 = ref.tileManager.mapTileNum[entityRightCol][entityBottomRow];

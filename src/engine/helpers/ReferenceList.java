@@ -25,6 +25,6 @@ public class ReferenceList {
 
     public Player player = new Player(this);
 
-    public boolean upPressed, downPressed, leftPressed, rightPressed, enterPressed, spacePressed, shiftPressed, ePressed;
+    public boolean upPressed, downPressed, leftPressed, rightPressed, enterPressed, spacePressed, shiftPressed, ePressed, fPressed;
 
 }

@@ -68,6 +68,7 @@ public class TileManager {
         fishableTiles.add("024.png");
         fishableTiles.add("025.png");
         fishableTiles.add("025.png");
+        fishableTiles.add("026.png");
         fishableTiles.add("027.png");
     }
 
