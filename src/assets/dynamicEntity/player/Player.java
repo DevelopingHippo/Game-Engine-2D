@@ -45,12 +45,14 @@ public class Player extends DynamicEntity {
         up_fishing1 = Utils.setupImage("/Images/Assets/Player/Fishing/fishing_up_1", ref.settings.tileSize, ref.settings.tileSize * 2);
         up_fishing2 = Utils.setupImage("/Images/Assets/Player/Fishing/fishing_up_2", ref.settings.tileSize, ref.settings.tileSize * 2);
 
+        down_fishing1 = Utils.setupImage("/Images/Assets/Player/Fishing/fishing_down_1", ref.settings.tileSize, ref.settings.tileSize * 2);
+        down_fishing2 = Utils.setupImage("/Images/Assets/Player/Fishing/fishing_down_2", ref.settings.tileSize, ref.settings.tileSize * 2);
+
         left_fishing1 = Utils.setupImage("/Images/Assets/Player/Fishing/fishing_left_1", ref.settings.tileSize * 2, ref.settings.tileSize);
         left_fishing2 = Utils.setupImage("/Images/Assets/Player/Fishing/fishing_left_2", ref.settings.tileSize * 2, ref.settings.tileSize);
 
         right_fishing1 = Utils.setupImage("/Images/Assets/Player/Fishing/fishing_right_1", ref.settings.tileSize * 2, ref.settings.tileSize);
         right_fishing2 = Utils.setupImage("/Images/Assets/Player/Fishing/fishing_right_2", ref.settings.tileSize * 2, ref.settings.tileSize);
-
 
         idle = down1;
     }

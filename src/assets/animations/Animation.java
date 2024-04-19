@@ -77,13 +77,6 @@ public class Animation {
 
     public BufferedImage fishingAnimation() {
         BufferedImage image = null;
-        if (entity.spriteNum == 1) { image = entity.right_fishing1; }
-        if (entity.spriteNum == 2) { image = entity.right_fishing1; }
-        if (entity.spriteNum == 3) { image = entity.right_fishing1; }
-        if (entity.spriteNum == 4) { image = entity.right_fishing2; }
-
-
-
         switch(entity.direction) {
             case "up":
                 if (entity.spriteNum == 1) { image = entity.up_fishing1; }
@@ -92,10 +85,10 @@ public class Animation {
                 if (entity.spriteNum == 4) { image = entity.up_fishing2; }
                 break;
             case "down":
-                if (entity.spriteNum == 1) { image = entity.right_fishing1; }
-                if (entity.spriteNum == 2) { image = entity.right_fishing1; }
-                if (entity.spriteNum == 3) { image = entity.right_fishing1; }
-                if (entity.spriteNum == 4) { image = entity.right_fishing2; }
+                if (entity.spriteNum == 1) { image = entity.down_fishing1; }
+                if (entity.spriteNum == 2) { image = entity.down_fishing1; }
+                if (entity.spriteNum == 3) { image = entity.down_fishing2; }
+                if (entity.spriteNum == 4) { image = entity.down_fishing2; }
                 break;
             case "left":
                 if (entity.spriteNum == 1) { image = entity.left_fishing1; }
