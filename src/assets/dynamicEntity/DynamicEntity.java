@@ -62,45 +62,27 @@ public class DynamicEntity extends Asset {
 
 
     public void moveDynamicEntity() {
-
-        if(name.equals("Player")) {
-
-            if(ref.upPressed) {
+        switch (direction) {
+            case "up":
                 worldY = worldY - moveSpeed;
-            }
-            if(ref.downPressed) {
+                break;
+            case "down":
                 worldY = worldY + moveSpeed;
-            }
-            if(ref.leftPressed) {
+                break;
+            case "left":
                 worldX = worldX - moveSpeed;
-            }
-            if(ref.rightPressed) {
+                break;
+            case "right":
                 worldX = worldX + moveSpeed;
-            }
+                break;
         }
-        else {
-            switch (direction) {
-                case "up":
-                    worldY = worldY - moveSpeed;
-                    break;
-                case "down":
-                    worldY = worldY + moveSpeed;
-                    break;
-                case "left":
-                    worldX = worldX - moveSpeed;
-                    break;
-                case "right":
-                    worldX = worldX + moveSpeed;
-                    break;
-            }
-        }
-
     }
 
     public void update() {
         setAction();
         collisionOn = false;
         ref.collisionChecker.checkTile(this);
+        ref.collisionChecker.checkCollisionWithPlayer(this);
         if(!collisionOn){
             moveDynamicEntity();
         }

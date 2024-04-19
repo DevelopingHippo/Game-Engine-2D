@@ -40,22 +40,22 @@ public class ParticleGenerator {
 
         switch(asset.direction) {
             case "up":
-                p1 = new Particle(ref, asset, Color.blue, 4, 1, 6, 1, 1, (asset.worldX + (ref.settings.tileSize * 2)) - 5, asset.worldY + (ref.settings.tileSize) - 5);
-                p2 = new Particle(ref, asset, Color.blue, 4, 1, 6, -1, 1, asset.worldX + (ref.settings.tileSize * 2) - 5, asset.worldY + (ref.settings.tileSize) - 5);
-                p3 = new Particle(ref, asset, Color.blue, 4, 1, 6, 1, -1, asset.worldX + (ref.settings.tileSize * 2) - 5, asset.worldY + (ref.settings.tileSize) - 5);
-                p4 = new Particle(ref, asset, Color.blue, 4, 1, 6, -1, -1, asset.worldX + (ref.settings.tileSize * 2) - 5, asset.worldY + (ref.settings.tileSize) -5);
+                p1 = new Particle(ref, asset, Color.blue, 4, 1, 6, 1, 1, asset.worldX + (ref.settings.tileSize / 2), asset.worldY - (ref.settings.tileSize));
+                p2 = new Particle(ref, asset, Color.blue, 4, 1, 6, -1, 1, asset.worldX + (ref.settings.tileSize / 2), asset.worldY - (ref.settings.tileSize));
+                p3 = new Particle(ref, asset, Color.blue, 4, 1, 6, 1, -1, asset.worldX + (ref.settings.tileSize / 2), asset.worldY - (ref.settings.tileSize));
+                p4 = new Particle(ref, asset, Color.blue, 4, 1, 6, -1, -1, asset.worldX + (ref.settings.tileSize / 2), asset.worldY - (ref.settings.tileSize));
                 break;
             case "down":
-                p1 = new Particle(ref, asset, Color.blue, 4, 1, 6, 1, 1, asset.worldX + (ref.settings.tileSize / 2), asset.worldY + (ref.settings.tileSize * 2));
-                p2 = new Particle(ref, asset, Color.blue, 4, 1, 6, -1, 1, asset.worldX + (ref.settings.tileSize / 2), asset.worldY + (ref.settings.tileSize * 2));
-                p3 = new Particle(ref, asset, Color.blue, 4, 1, 6, 1, -1, asset.worldX + (ref.settings.tileSize / 2), asset.worldY + (ref.settings.tileSize * 2));
-                p4 = new Particle(ref, asset, Color.blue, 4, 1, 6, -1, -1, asset.worldX + (ref.settings.tileSize / 2), asset.worldY + (ref.settings.tileSize * 2));
+                p1 = new Particle(ref, asset, Color.blue, 4, 1, 6, 1, 1, asset.worldX + (ref.settings.tileSize / 2), asset.worldY + (ref.settings.tileSize * 2) - 5);
+                p2 = new Particle(ref, asset, Color.blue, 4, 1, 6, -1, 1, asset.worldX + (ref.settings.tileSize / 2), asset.worldY + (ref.settings.tileSize * 2) - 5);
+                p3 = new Particle(ref, asset, Color.blue, 4, 1, 6, 1, -1, asset.worldX + (ref.settings.tileSize / 2), asset.worldY + (ref.settings.tileSize * 2) - 5);
+                p4 = new Particle(ref, asset, Color.blue, 4, 1, 6, -1, -1, asset.worldX + (ref.settings.tileSize / 2), asset.worldY + (ref.settings.tileSize * 2) - 5);
                 break;
             case "left":
-                p1 = new Particle(ref, asset, Color.blue, 4, 1, 6, 1, 1, (asset.worldX + (ref.settings.tileSize * 2)) - 5, asset.worldY + (ref.settings.tileSize) - 5);
-                p2 = new Particle(ref, asset, Color.blue, 4, 1, 6, -1, 1, asset.worldX + (ref.settings.tileSize * 2) - 5, asset.worldY + (ref.settings.tileSize) - 5);
-                p3 = new Particle(ref, asset, Color.blue, 4, 1, 6, 1, -1, asset.worldX + (ref.settings.tileSize * 2) - 5, asset.worldY + (ref.settings.tileSize) - 5);
-                p4 = new Particle(ref, asset, Color.blue, 4, 1, 6, -1, -1, asset.worldX + (ref.settings.tileSize * 2) - 5, asset.worldY + (ref.settings.tileSize) -5);
+                p1 = new Particle(ref, asset, Color.blue, 4, 1, 6, 1, 1, asset.worldX - (ref.settings.tileSize), asset.worldY + (ref.settings.tileSize) - 5);
+                p2 = new Particle(ref, asset, Color.blue, 4, 1, 6, -1, 1, asset.worldX - (ref.settings.tileSize), asset.worldY + (ref.settings.tileSize) - 5);
+                p3 = new Particle(ref, asset, Color.blue, 4, 1, 6, 1, -1, asset.worldX - (ref.settings.tileSize), asset.worldY + (ref.settings.tileSize) - 5);
+                p4 = new Particle(ref, asset, Color.blue, 4, 1, 6, -1, -1, asset.worldX - (ref.settings.tileSize), asset.worldY + (ref.settings.tileSize) -5);
                 break;
             case "right":
                 p1 = new Particle(ref, asset, Color.blue, 4, 1, 6, 1, 1, (asset.worldX + (ref.settings.tileSize * 2)) - 5, asset.worldY + (ref.settings.tileSize) - 5);

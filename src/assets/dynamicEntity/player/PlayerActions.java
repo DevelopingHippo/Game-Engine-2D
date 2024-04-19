@@ -62,16 +62,14 @@ public class PlayerActions {
             if(player.fishLockCount > 244){
                 player.fishLockCount = 0;
                 caughtFish = false;
+                catchingFishSE = false;
+                ref.soundEngine.stopSE("fishing_caught");
             }
         }
         else {
             caughtFish = catchingFish();
         }
     }
-
-
-
-
 
     public void checkPlayerMovement() {
         if(ref.upPressed){

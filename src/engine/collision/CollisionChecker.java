@@ -1,4 +1,5 @@
 package engine.collision;
+import assets.Asset;
 import assets.dynamicEntity.DynamicEntity;
 import assets.dynamicEntity.player.Player;
 import engine.helpers.ReferenceList;
@@ -253,5 +254,30 @@ public class CollisionChecker {
             }
         }
         return interact;
+    }
+
+
+    public void checkCollisionWithPlayer(DynamicEntity entity) {
+
+        ref.player.collisionBox.x += ref.player.worldX;
+        ref.player.collisionBox.y += ref.player.worldY;
+
+        entity.collisionBox.x += entity.worldX;
+        entity.collisionBox.y += entity.worldY;
+
+        switch(entity.direction) {
+            case "up": entity.collisionBox.y -= entity.moveSpeed; break;
+            case "down": entity.collisionBox.y += entity.moveSpeed; break;
+            case "left": entity.collisionBox.x -= entity.moveSpeed; break;
+            case "right": entity.collisionBox.x += entity.moveSpeed; break;
+        }
+        if(entity.collisionBox.intersects(ref.player.collisionBox)) {
+            entity.collisionOn = true;
+        }
+        entity.collisionBox.x = entity.collisionBoxDefaultX;
+        entity.collisionBox.y = entity.collisionBoxDefaultY;
+        ref.player.collisionBox.x = ref.player.collisionBoxDefaultX;
+        ref.player.collisionBox.y = ref.player.collisionBoxDefaultY;
+
     }
 }

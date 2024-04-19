@@ -34,9 +34,6 @@ public class Player extends DynamicEntity {
 
 
     public void movePlayer() {
-        if(!particleGenerated){
-            ref.particleGenerator.generateGrassParticle(this);
-        }
         if(ref.upPressed) {
             worldY = worldY - moveSpeed;
         }
@@ -163,8 +160,10 @@ public class Player extends DynamicEntity {
         int tempScreenX = ref.settings.screenX;
         int tempScreenY = ref.settings.screenY;
 
-        if(isMoving) { image = animation.walkAnimation3f(); }
-        else if(isFishing) {
+        if(isMoving) {
+            image = animation.walkAnimation3f();
+        }
+        else if(isFishing && !receiveFish) {
             if(direction.equals("up")){
                 tempScreenY = ref.settings.screenY - ref.settings.tileSize;
 
@@ -173,11 +172,13 @@ public class Player extends DynamicEntity {
                 tempScreenX = ref.settings.screenX - ref.settings.tileSize;
             }
             image = animation.fishingAnimation(caughtFish);
-            if(receiveFish && !isMoving){
-                image = animation.receiveFish();
-            }
         }
-        else { image = animation.idleAnimation(); }
+        else if(receiveFish) {
+            image = animation.receiveFish();
+        }
+        else {
+            image = animation.idleAnimation();
+        }
 
         g2.drawImage(image, tempScreenX, tempScreenY, null);
         if(ref.settings.debug){
