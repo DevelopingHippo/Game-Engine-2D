@@ -24,7 +24,6 @@ public class PlayerActions {
     }
 
 
-
     public boolean catchingFish() {
         if(fishActionNum == 0){
             fishActionMagicNumber = rand.nextInt(3) + 4;
