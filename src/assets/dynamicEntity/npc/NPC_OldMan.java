@@ -13,6 +13,7 @@ public class NPC_OldMan extends NPC {
         collisionBoxDefaultY = 0;
         collisionBox = new Rectangle(collisionBoxDefaultX, collisionBoxDefaultY, ref.settings.tileSize, ref.settings.tileSize);
         getOldManImages();
+        setDialogue();
     }
 
     private void getOldManImages() {

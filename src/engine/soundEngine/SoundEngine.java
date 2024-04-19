@@ -21,6 +21,10 @@ public class SoundEngine {
         soundCollection.put("footsteps_sprinting", new Sound("/Sounds/SoundEffects/footsteps_sprinting.wav"));
         soundCollection.put("stairs", new Sound("/Sounds/SoundEffects/stairs.wav"));
         soundCollection.put("door_open", new Sound("/Sounds/SoundEffects/door_open.wav"));
+        soundCollection.put("fishing_cast", new Sound("/Sounds/SoundEffects/fishing_cast.wav"));
+        soundCollection.put("fishing_caught", new Sound("/Sounds/SoundEffects/fishing_caught.wav"));
+        soundCollection.put("fishing_received", new Sound("/Sounds/SoundEffects/fishing_received.wav"));
+        soundCollection.put("npc_speak", new Sound("/Sounds/SoundEffects/npc_speak.wav"));
     }
 
 

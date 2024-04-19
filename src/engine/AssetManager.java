@@ -3,6 +3,8 @@ package engine;
 import assets.Asset;
 import assets.dynamicEntity.animal.ANML_Ollie;
 import assets.dynamicEntity.monster.MON_GreenSlime;
+import assets.dynamicEntity.npc.Dan;
+import assets.dynamicEntity.npc.NPC;
 import assets.dynamicEntity.npc.NPC_OldMan;
 import assets.dynamicEntity.particle.Particle;
 import assets.staticEntity.Interactable.InteractableEntity;
@@ -21,6 +23,8 @@ public class AssetManager {
 
     private final ArrayList<Asset> allAssets = new ArrayList<>();
     private final HashMap<String, Asset> assetMap = new HashMap<>();
+
+    private final ArrayList<NPC> npcAssets = new ArrayList<>();
 
     private final ArrayList<StaticEntity> staticAssets = new ArrayList<>();
     private final HashMap<String, StaticEntity> staticEntityAssetsMap = new HashMap<>();
@@ -47,7 +51,7 @@ public class AssetManager {
     public ArrayList<InteractableEntity> getInteractableAssets() {return interactableAssets;}
     public StaticEntity getStaticByUUID(String uuid){return staticEntityAssetsMap.get(uuid);}
     public ArrayList<StaticEntity> getStaticAssets() {return staticAssets;}
-
+    public ArrayList<NPC> getNPCAssets() {return npcAssets;}
 
     public void spawnAsset(String name, int worldX, int worldY) {
         Asset asset = null;
@@ -56,6 +60,7 @@ public class AssetManager {
                 asset = new NPC_OldMan(ref);
                 asset.worldX = worldX * ref.settings.tileSize;
                 asset.worldY = worldY * ref.settings.tileSize;
+                npcAssets.add((NPC) asset);
                 break;
             case "Green Slime":
                 asset = new MON_GreenSlime(ref);
@@ -66,6 +71,12 @@ public class AssetManager {
                 asset = new ANML_Ollie(ref);
                 asset.worldX = worldX * ref.settings.tileSize;
                 asset.worldY = worldY * ref.settings.tileSize;
+                break;
+            case "Dan":
+                asset = new Dan(ref);
+                asset.worldX = worldX * ref.settings.tileSize;
+                asset.worldY = worldY * ref.settings.tileSize;
+                npcAssets.add((NPC) asset);
                 break;
             case "Door":
                 asset = new OBJ_Door(ref);

@@ -14,7 +14,8 @@ public class Sound {
     Clip clip;
     URL soundFile;
     float previousVolume = 0;
-    float currentVolume = -30.0f;
+    float currentVolume = -25.0f;
+    float defaultVolume = -25.0f;
     FloatControl fc;
     boolean mute = false;
 

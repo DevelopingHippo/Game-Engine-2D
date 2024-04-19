@@ -5,6 +5,7 @@ import engine.helpers.ReferenceList;
 import java.awt.*;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
 
 public class UI {
 
@@ -12,6 +13,9 @@ public class UI {
     private final ReferenceList ref;
     private Graphics2D g2;
     public int commandNum = 0;
+    public String currentDialogue = "";
+    ArrayList<String> message = new ArrayList<>();
+    ArrayList<Integer> messageCounter = new ArrayList<>();
 
     public UI(ReferenceList ref) {
         this.ref = ref;
@@ -90,20 +94,61 @@ public class UI {
 
 
     private void drawPlayState() {
-        if(ref.settings.gameDrawState == ref.settings.playDrawState){
-
-        }
         if(ref.settings.gameDrawState == ref.settings.characterDrawState){
-
+            characterState();
+        }
+        if (ref.settings.gameDrawState == ref.settings.dialogueDrawState) {
+            drawDialogueState();
         }
     }
-
+    private void drawDialogueState() {
+        drawDialogueScreen();
+    }
 
     private void characterState() {
 
     }
 
 
+    private void drawDialogueScreen() {
+        int x = ref.settings.tileSize * 2;
+        int y = ref.settings.tileSize / 2;
+        int width = ref.settings.screenWidth - (ref.settings.tileSize * 4);
+        int height = ref.settings.tileSize * 4;
+        drawSubWindow(x, y, width, height);
+        x+= ref.settings.tileSize;
+        y+= ref.settings.tileSize;
+        g2.setFont(g2.getFont().deriveFont(Font.PLAIN, 25F));
+        if(currentDialogue != null){
+            for(String line : currentDialogue.split("\n")) {
+                g2.drawString(line, x, y);
+                y+= 40;
+            }
+        }
+    }
+
+    private void drawMessage() {
+        int messageX = ref.settings.tileSize;
+        int messageY = ref.settings.tileSize * 4;
+        g2.setFont(g2.getFont().deriveFont(Font.BOLD, 32f));
+        for(int i = 0; i < message.size(); i++){
+            if(message.get(i) != null){
+                g2.setColor(Color.BLACK);
+                g2.drawString(message.get(i), messageX + 2, messageY + 2);
+                g2.setColor(Color.white);
+                g2.drawString(message.get(i), messageX, messageY);
+
+                int counter = messageCounter.get(i) + 1;
+                messageCounter.set(i, counter);
+                messageY += 50;
+
+                if(messageCounter.get(i) > 420) {
+                    message.remove(i);
+                    messageCounter.remove(i);
+                }
+            }
+        }
+    }
 
     private void drawSubWindow(int x, int y, int width, int height) {
         Color c = new Color(0, 0, 0, 210);

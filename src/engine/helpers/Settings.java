@@ -12,9 +12,10 @@ public class Settings {
     public int titleState = 0;
     public int playState = 1;
     public int gameDrawState = 0;
-    public int titleDrawState = 0;
     public int playDrawState = 1;
+    public int dialogueDrawState = 2;
     public int characterDrawState = 3;
+
 
     public boolean debug = false;
 

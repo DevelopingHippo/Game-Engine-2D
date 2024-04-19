@@ -15,6 +15,7 @@ public class PlayerActions {
     public int fishActionCounter = 0;
     public int fishActionMagicNumber;
     public int fishActionNum = 0;
+    private boolean catchingFishSE = false;
 
 
     public PlayerActions(ReferenceList ref, Player player) {
@@ -40,7 +41,79 @@ public class PlayerActions {
         return false;
     }
 
+    public void catchingFishAction() {
+        if(caughtFish){
+            if(!catchingFishSE){
+                ref.soundEngine.playSE("fishing_caught");
+                catchingFishSE = true;
+            }
+            if(!player.particleGenerated){
+                ref.particleGenerator.generateFishSplash(player);
+            }
+            player.fishLockCount++;
+            if(ref.ePressed && !player.receiveFish && !player.isMoving){
+                ref.soundEngine.stopSE("fishing_caught");
+                ref.soundEngine.playSE("fishing_received");
+                player.receiveFish = true;
+                player.fishLockCount = 0;
+                caughtFish = false;
+                catchingFishSE = false;
+            }
+            if(player.fishLockCount > 244){
+                player.fishLockCount = 0;
+                caughtFish = false;
+            }
+        }
+        else {
+            caughtFish = catchingFish();
+        }
+    }
 
+
+
+
+
+    public void checkPlayerMovement() {
+        if(ref.upPressed){
+            player.direction = "up";
+            player.isMoving = true;
+        }
+        if(ref.downPressed){
+            player.direction = "down";
+            player.isMoving = true;
+        }
+        if(ref.leftPressed){
+            player.direction = "left";
+            player.isMoving = true;
+        }
+        if(ref.rightPressed){
+            player.direction = "right";
+            player.isMoving = true;
+        }
+        if(ref.shiftPressed){
+            player.spriteCounter++;
+            player.isSprinting = true;
+            player.moveSpeed = ref.settings.playerSprintSpeed;
+        }
+        else {
+            player.moveSpeed = ref.settings.playerDefaultMoveSpeed;
+            player.isSprinting = false;
+        }
+    }
+
+    public void checkExtraActions() {
+        player.collisionOn = false;
+        ref.collisionChecker.playerCheckTile(player);
+
+        String collidedEntity = ref.collisionChecker.checkStaticEntity(player, true);
+
+        if(collidedEntity != null){
+            player.collisionOn = true;
+        }
+        if(player.isMoving){
+            player.isFishing = false;
+        }
+    }
 
 
     public void getPlayerImages() {

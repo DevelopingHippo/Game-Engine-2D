@@ -75,6 +75,18 @@ public class Animation {
         return image;
     }
 
+    public BufferedImage upBlink3f() {
+        BufferedImage image = null;
+        if (entity.spriteNum == 1) { image = entity.up1; }
+        if (entity.spriteNum == 2) { image = entity.up1; }
+        if (entity.spriteNum == 3) { image = entity.up2; }
+        if (entity.spriteNum == 4) { image = entity.up3; }
+        return image;
+    }
+
+
+
+
     public BufferedImage fishingAnimation(boolean caughtFish) {
         BufferedImage image = null;
         switch(entity.direction) {

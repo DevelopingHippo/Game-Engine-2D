@@ -1,5 +1,6 @@
 package engine.collision;
 import assets.dynamicEntity.DynamicEntity;
+import assets.dynamicEntity.player.Player;
 import engine.helpers.ReferenceList;
 
 import java.util.Objects;
@@ -227,4 +228,30 @@ public class CollisionChecker {
     }
 
 
+    public boolean checkNPC() {
+        boolean interact = false;
+        for(int i = 0; i < ref.assetManager.getNPCAssets().size(); i++) {
+            if(ref.assetManager.getNPCAssets().get(i) != null) {
+                if(ref.assetManager.getNPCAssets().get(i).isInPlayerVision()) {
+                    ref.player.collisionBox.x += ref.player.worldX;
+                    ref.player.collisionBox.y += ref.player.worldY;
+                    ref.assetManager.getNPCAssets().get(i).interactBox.x += ref.assetManager.getNPCAssets().get(i).worldX;
+                    ref.assetManager.getNPCAssets().get(i).interactBox.y += ref.assetManager.getNPCAssets().get(i).worldY;
+                    if(ref.player.collisionBox.intersects(ref.assetManager.getNPCAssets().get(i).interactBox)) {
+                        ref.assetManager.getNPCAssets().get(i).speak();
+                        ref.player.collisionBox.x = ref.player.collisionBoxDefaultX;
+                        ref.player.collisionBox.y = ref.player.collisionBoxDefaultY;
+                        ref.assetManager.getNPCAssets().get(i).interactBox.x = ref.assetManager.getNPCAssets().get(i).interactBoxDefaultX;
+                        ref.assetManager.getNPCAssets().get(i).interactBox.y = ref.assetManager.getNPCAssets().get(i).interactBoxDefaultY;
+                        return true;
+                    }
+                    ref.player.collisionBox.x = ref.player.collisionBoxDefaultX;
+                    ref.player.collisionBox.y = ref.player.collisionBoxDefaultY;
+                    ref.assetManager.getNPCAssets().get(i).interactBox.x = ref.assetManager.getNPCAssets().get(i).interactBoxDefaultX;
+                    ref.assetManager.getNPCAssets().get(i).interactBox.y = ref.assetManager.getNPCAssets().get(i).interactBoxDefaultY;
+                }
+            }
+        }
+        return interact;
+    }
 }
