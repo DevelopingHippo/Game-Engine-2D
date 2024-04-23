@@ -2,6 +2,7 @@ package engine.renderer;
 
 import assets.Asset;
 import assets.dynamicEntity.particle.Particle;
+import assets.projectile.Projectile;
 import engine.helpers.ReferenceList;
 
 import java.awt.*;
@@ -27,6 +28,11 @@ public class Renderer {
         for(Asset asset : ref.assetManager.getAllAssets()) {
             if(asset != null){
                 renderAssetList.add(asset);
+            }
+        }
+        for(Projectile projectile : ref.assetManager.getProjectileList()){
+            if(projectile != null){
+                renderAssetList.add(projectile);
             }
         }
         for(Asset asset : renderAssetList){

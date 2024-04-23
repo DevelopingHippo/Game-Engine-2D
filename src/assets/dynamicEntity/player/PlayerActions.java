@@ -17,6 +17,7 @@ public class PlayerActions {
     public int fishActionMagicNumber;
     public int fishActionNum = 0;
     private boolean catchingFishSE = false;
+    private int regenCounter = 0;
 
 
     public PlayerActions(ReferenceList ref, Player player) {
@@ -55,6 +56,7 @@ public class PlayerActions {
                 ref.soundEngine.stopSE("fishing_caught");
                 ref.soundEngine.playSE("fishing_received");
                 player.backpack.addItemToBackpack(new Goldfish(ref));
+                player.stats.currentHealth -= 5;
                 player.receiveFish = true;
                 player.fishLockCount = 0;
                 caughtFish = false;
@@ -71,6 +73,47 @@ public class PlayerActions {
             caughtFish = catchingFish();
         }
     }
+
+
+    public void shootProjectile() {
+        if(player.stats.currentMana >= player.stats.currentProjectile.manaCost){
+            player.stats.currentProjectile.shoot(player.worldX, player.worldY, player.direction, true, player);
+            ref.assetManager.spawnProjectile(player.stats.currentProjectile);
+            ref.soundEngine.playSE("burning");
+            player.stats.currentMana -= player.stats.currentProjectile.manaCost;
+        }
+    }
+
+    public void regenResources() {
+
+        regenCounter++;
+
+        if(regenCounter % 72 == 0) {
+            if(player.stats.currentHealth < player.stats.maxHealth){
+                player.stats.currentHealth++;
+            }
+            if(player.stats.currentStamina < player.stats.maxStamina){
+                player.stats.currentStamina++;
+            }
+            if(player.stats.currentMana < player.stats.maxMana){
+                player.stats.currentMana++;
+            }
+
+            if(player.stats.currentMana > player.stats.maxMana) {
+                player.stats.currentMana = player.stats.maxMana;
+            }
+            if(player.stats.currentHealth > player.stats.maxHealth) {
+                player.stats.currentHealth = player.stats.maxHealth;
+            }
+            if(player.stats.currentStamina > player.stats.maxStamina){
+                player.stats.currentStamina = player.stats.maxStamina;
+            }
+        }
+        if(regenCounter > 144) {
+            regenCounter = 0;
+        }
+    }
+
 
     public void checkPlayerMovement() {
         if(ref.upPressed){

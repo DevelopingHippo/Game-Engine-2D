@@ -19,6 +19,7 @@ public class NPC extends DynamicEntity {
 
     public NPC(ReferenceList ref) {
         super(ref);
+        type = "NPC";
     }
 
     public void setDialogue() {

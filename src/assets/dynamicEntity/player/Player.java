@@ -24,6 +24,7 @@ public class Player extends DynamicEntity {
     public Player(ReferenceList ref) {
         super(ref);
         name = "Player";
+        type = "Player";
         actions = new PlayerActions(ref, this);
         worldX = ref.settings.playerDefaultWorldX * ref.settings.tileSize;
         worldY = ref.settings.playerDefaultWorldY * ref.settings.tileSize;
@@ -69,6 +70,7 @@ public class Player extends DynamicEntity {
     }
 
     public void counterIncrease() {
+        actions.regenResources();
         if(interacted){
             interactLock++;
             if(interactLock > 72){
@@ -100,6 +102,7 @@ public class Player extends DynamicEntity {
     public void update() {
         isMoving = false;
         counterIncrease();
+        stats.updatePlayerStats();
         if(ref.enterPressed){
             ref.settings.gameDrawState = ref.settings.playDrawState;
             if(speakSE) {
@@ -107,6 +110,11 @@ public class Player extends DynamicEntity {
                 speakSE = false;
             }
         }
+
+        if(ref.fPressed && !stats.currentProjectile.isAlive) {
+            actions.shootProjectile();
+        }
+
         if(ref.ePressed) {
             if(!interacted) {
                 if(ref.collisionChecker.checkInteractZone()) {

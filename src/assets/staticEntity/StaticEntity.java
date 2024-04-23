@@ -12,6 +12,7 @@ public class StaticEntity extends Asset {
     public String direction = "down";
     public StaticEntity(ReferenceList ref) {
         super(ref);
+        type = "StaticEntity";
     }
 
     public void draw(Graphics2D g2) {

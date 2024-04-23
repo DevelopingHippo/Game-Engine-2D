@@ -137,7 +137,7 @@ public class CollisionChecker {
     }
 
     private void checkDirection(DynamicEntity entity) {
-        if(Objects.equals(entity.name, "Player")){
+        if(Objects.equals(entity.type, "Player")){
             if(ref.upPressed){entity.collisionBox.y -= entity.moveSpeed;}
             if(ref.downPressed){entity.collisionBox.y += entity.moveSpeed;}
             if(ref.leftPressed){entity.collisionBox.x -= entity.moveSpeed;}
@@ -279,5 +279,28 @@ public class CollisionChecker {
         ref.player.collisionBox.x = ref.player.collisionBoxDefaultX;
         ref.player.collisionBox.y = ref.player.collisionBoxDefaultY;
 
+    }
+
+    public String checkMonster(DynamicEntity entity, boolean player) {
+        String index = null;
+        for(int i = 0; i < ref.assetManager.getMonstersList().size(); i++) {
+            if(ref.assetManager.getMonstersList().get(i) != null) {
+                if(ref.assetManager.getMonstersList().get(i).isInPlayerVision()){
+                    entity.collisionBox.x += entity.worldX;
+                    entity.collisionBox.y += entity.worldY;
+                    ref.assetManager.getMonstersList().get(i).collisionBox.x += ref.assetManager.getMonstersList().get(i).worldX;
+                    ref.assetManager.getMonstersList().get(i).collisionBox.y += ref.assetManager.getMonstersList().get(i).worldY;
+                    checkDirection(entity);
+                    if(entity.collisionBox.intersects(ref.assetManager.getMonstersList().get(i).collisionBox)) {
+                        index = ref.assetManager.getMonstersList().get(i).uuid;
+                    }
+                    entity.collisionBox.x = entity.collisionBoxDefaultX;
+                    entity.collisionBox.y = entity.collisionBoxDefaultY;
+                    ref.assetManager.getMonstersList().get(i).collisionBox.x = ref.assetManager.getMonstersList().get(i).collisionBoxDefaultX;
+                    ref.assetManager.getMonstersList().get(i).collisionBox.y = ref.assetManager.getMonstersList().get(i).collisionBoxDefaultY;
+                }
+            }
+        }
+        return index;
     }
 }

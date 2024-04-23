@@ -75,6 +75,14 @@ public class Animation {
         return image;
     }
 
+    public BufferedImage walkAnimationDown2f() {
+        BufferedImage image = null;
+        if (entity.spriteNum == 1) { image = entity.down1; }
+        if (entity.spriteNum == 2) { image = entity.down1; }
+        if (entity.spriteNum == 3) { image = entity.down2; }
+        if (entity.spriteNum == 4) { image = entity.down2; }
+        return image;
+    }
 
     public BufferedImage walkAnimation1f() {
         BufferedImage image = null;

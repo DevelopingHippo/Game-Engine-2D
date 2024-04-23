@@ -7,7 +7,7 @@ import engine.helpers.Utils;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 
-public class ANML_Ollie extends DynamicEntity {
+public class ANML_Ollie extends Animal {
 
 
     public ANML_Ollie(ReferenceList ref) {

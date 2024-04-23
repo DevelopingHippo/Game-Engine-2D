@@ -9,6 +9,9 @@ public class IronSword extends Weapon{
         super(ref);
         name = "Iron Sword";
         description = "[" + name +"]\nAn Iron Sword";
+
+        attackRating = 10;
+
         setup();
     }
 

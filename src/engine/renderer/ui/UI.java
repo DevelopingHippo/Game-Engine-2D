@@ -97,13 +97,65 @@ public class UI {
 
 
     private void drawPlayState() {
-        if(ref.settings.gameDrawState == ref.settings.characterDrawState){
+        if(ref.settings.gameDrawState == ref.settings.characterDrawState) {
             characterState();
         }
         if (ref.settings.gameDrawState == ref.settings.dialogueDrawState) {
             drawDialogueState();
         }
+        if(ref.settings.gameDrawState == ref.settings.playDrawState) {
+            drawPlayerUI();
+        }
     }
+
+    private void drawPlayerUI() {
+
+        drawPlayerStats();
+
+    }
+
+    private void drawPlayerStats() {
+        int frameX = ref.settings.tileSize * 1;
+        int frameY = ref.settings.tileSize * 1;
+
+        double hpScale = (double) (ref.settings.tileSize * 2)/ref.player.stats.maxHealth;
+        double hpBarValue = hpScale * ref.player.stats.currentHealth;
+
+        // TOTAL HEALTH
+        g2.setColor(new Color(35, 35, 35));
+        g2.fillRect(frameX - 1, frameY - 1, ref.settings.tileSize * 2 + 2, 12);
+
+        // CURRENT HEALTH
+        g2.setColor(new Color(255, 0 ,30, 200));
+        g2.fillRect(frameX, frameY, (int)hpBarValue, 10);
+
+
+        // TOTAL STAMINA
+        frameY += 16;
+        double staminaScale = (double) (ref.settings.tileSize * 2)/ref.player.stats.maxStamina;
+        double staminaBarValue = staminaScale * ref.player.stats.currentStamina;
+
+        g2.setColor(new Color(35, 35, 35));
+        g2.fillRect(frameX - 1, frameY - 1, ref.settings.tileSize * 2 + 2, 12);
+
+        // CURRENT STAMINA
+        g2.setColor(new Color(50, 200 ,50, 200));
+        g2.fillRect(frameX, frameY, (int)staminaBarValue, 10);
+
+
+        // TOTAL MANA
+        frameY += 16;
+        double manaScale = (double) (ref.settings.tileSize * 2)/ref.player.stats.maxMana;
+        double manaBarValue = manaScale * ref.player.stats.currentMana;
+        g2.setColor(new Color(35, 35, 35));
+        g2.fillRect(frameX - 1, frameY - 1, ref.settings.tileSize * 2 + 2, 12);
+
+        // CURRENT MANA
+        g2.setColor(new Color(0, 150 ,255, 200));
+        g2.fillRect(frameX, frameY, (int)manaBarValue, 10);
+    }
+
+
     private void drawDialogueState() {
         drawDialogueScreen();
     }

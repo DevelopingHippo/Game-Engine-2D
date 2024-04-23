@@ -3,10 +3,12 @@ package engine;
 import assets.Asset;
 import assets.dynamicEntity.animal.ANML_Ollie;
 import assets.dynamicEntity.monster.MON_GreenSlime;
+import assets.dynamicEntity.monster.Monster;
 import assets.dynamicEntity.npc.Dan;
 import assets.dynamicEntity.npc.NPC;
 import assets.dynamicEntity.npc.NPC_OldMan;
 import assets.dynamicEntity.particle.Particle;
+import assets.projectile.Projectile;
 import assets.staticEntity.Interactable.InteractableEntity;
 import assets.staticEntity.Interactable.OBJ_Door;
 import assets.staticEntity.Interactable.OBJ_Stairs;
@@ -26,6 +28,10 @@ public class AssetManager {
 
     private final ArrayList<NPC> npcAssets = new ArrayList<>();
 
+    public ArrayList<Monster> monstersList = new ArrayList<>();
+    private final HashMap<String, Monster> monsterMap = new HashMap<>();
+
+
     private final ArrayList<StaticEntity> staticAssets = new ArrayList<>();
     private final HashMap<String, StaticEntity> staticEntityAssetsMap = new HashMap<>();
 
@@ -33,6 +39,9 @@ public class AssetManager {
     private final HashMap<String, InteractableEntity> interactableAssetMap = new HashMap<>();
 
     private final ArrayList<Particle> particleList = new ArrayList<>();
+
+    private final ArrayList<Projectile> projectileList = new ArrayList<>();
+
 
 
     public AssetManager(ReferenceList referenceList) {
@@ -52,6 +61,7 @@ public class AssetManager {
     public StaticEntity getStaticByUUID(String uuid){return staticEntityAssetsMap.get(uuid);}
     public ArrayList<StaticEntity> getStaticAssets() {return staticAssets;}
     public ArrayList<NPC> getNPCAssets() {return npcAssets;}
+    public ArrayList<Monster> getMonstersList() {return monstersList;}
 
     public void spawnAsset(String name, int worldX, int worldY) {
         Asset asset = null;
@@ -66,6 +76,8 @@ public class AssetManager {
                 asset = new MON_GreenSlime(ref);
                 asset.worldX = worldX * ref.settings.tileSize;
                 asset.worldY = worldY * ref.settings.tileSize;
+                monstersList.add((Monster) asset);
+                monsterMap.put(asset.uuid, (Monster) asset);
                 break;
             case "Ollie":
                 asset = new ANML_Ollie(ref);
@@ -119,9 +131,14 @@ public class AssetManager {
 
     public void spawnParticle(int variation, Asset generator, Color color, int size, int speed, int maxDuration) {}
 
+    public void spawnProjectile(Projectile projectile) {
+        projectileList.add(projectile);
+    }
+
     public ArrayList<Particle> getParticleList() {
         return this.particleList;
     }
+    public ArrayList<Projectile> getProjectileList() {return this.projectileList;}
 
 
     public void spawnTestAssets() {
@@ -129,9 +146,37 @@ public class AssetManager {
         spawnAsset("Old Man", 27, 13);
         spawnAsset("Door", 11, 27);
         spawnAsset("Dan", 20, 241);
+        spawnAsset("Green Slime", 27, 12);
         //ref.assetManager.spawnAsset("Ollie", 26, 11);
 
         spawnStairs(12, 21, 12, 238);
 
+    }
+
+    public Monster getMonsterByUUID(String uuid) {
+        return this.monsterMap.get(uuid);
+    }
+    public void removeMonsterByUUID(String uuid) {
+        monstersList.remove(monsterMap.get(uuid));
+        monsterMap.remove(uuid);
+        assetMap.remove(uuid);
+    }
+
+    public void removeAssetByUUID(String uuid) {
+        switch (assetMap.get(uuid).uuid) {
+            case "NPC":
+                npcAssets.remove(assetMap.get(uuid));
+                break;
+            case "Monster":
+                monstersList.remove(assetMap.get(uuid));
+                monsterMap.remove(uuid);
+                break;
+            case "Animal":
+                break;
+            case "InteractableEntity":
+                break;
+        }
+        allAssets.remove(assetMap.get(uuid));
+        assetMap.remove(uuid);
     }
 }

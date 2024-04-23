@@ -41,6 +41,7 @@ public class UserControls implements KeyListener {
         if(code == KeyEvent.VK_ENTER) {
             if(ref.ui.commandNum == 0){
                 ref.settings.gameState = ref.settings.playState;
+                ref.settings.gameDrawState = ref.settings.playDrawState;
             }
             if(ref.ui.commandNum == 1){
                 System.exit(0);
@@ -63,7 +64,6 @@ public class UserControls implements KeyListener {
             if(code == KeyEvent.VK_F) {
                 ref.fPressed = true;
             }
-
             if(code == KeyEvent.VK_W) {
                 ref.upPressed = true;
             }

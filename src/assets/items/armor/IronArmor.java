@@ -9,6 +9,9 @@ public class IronArmor extends Armor {
         super(ref);
         name = "Iron Armor";
         description = "[" + name +"]\nIron Armor for Defense";
+
+        defenseRating = 10;
+
         setup();
     }
 

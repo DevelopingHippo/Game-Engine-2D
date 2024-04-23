@@ -10,6 +10,8 @@ public class Asset {
     public int worldX = 0, worldY = 0;
     public final String uuid = UUID.randomUUID().toString();
     public String name;
+    public String type;
+    public boolean isAlive = true;
     public boolean collidable = false;
     public Rectangle collisionBox;
     public int collisionBoxDefaultX, collisionBoxDefaultY;

@@ -1,7 +1,9 @@
 package engine;
 
 import assets.Asset;
+import assets.dynamicEntity.monster.Monster;
 import assets.dynamicEntity.particle.Particle;
+import assets.projectile.Projectile;
 import engine.helpers.ReferenceList;
 import engine.helpers.Settings;
 
@@ -15,6 +17,8 @@ public class Engine extends JPanel implements Runnable  {
     private Thread engineThread;
 
     Iterator<Particle> iterParticle;
+    Iterator<Projectile> iterProjectile;
+    Iterator<Asset> iterAsset;
 
     public Engine() {
         ref.engine = this;
@@ -65,11 +69,30 @@ public class Engine extends JPanel implements Runnable  {
     private void update() {
         ref.player.update();
 
-        for(Asset asset : ref.assetManager.getAllAssets()){
-            if(asset != null) {
-                asset.update();
+//        for(Asset asset : ref.assetManager.getAllAssets()){
+//            if(asset != null) {
+//                if(asset.isAlive) {
+//                    asset.update();
+//                }
+//                else {
+//                    ref.assetManager.removeAssetByUUID(asset.uuid);
+//                }
+//            }
+//        }
+
+        iterAsset = ref.assetManager.getAllAssets().iterator();
+        while (iterAsset.hasNext()) {
+            Asset asset = iterAsset.next();
+            if (asset != null) {
+                if (asset.isAlive) {
+                    asset.update();
+                }
+                else {
+                    iterAsset.remove();
+                }
             }
         }
+
         iterParticle = ref.assetManager.getParticleList().iterator();
         while (iterParticle.hasNext()) {
             Particle particle = iterParticle.next();
@@ -79,6 +102,19 @@ public class Engine extends JPanel implements Runnable  {
                 }
                 else {
                     iterParticle.remove();
+                }
+            }
+        }
+
+        iterProjectile = ref.assetManager.getProjectileList().iterator();
+        while (iterProjectile.hasNext()) {
+            Projectile projectile = iterProjectile.next();
+            if (projectile != null) {
+                if (projectile.isAlive) {
+                    projectile.update();
+                }
+                else {
+                    iterProjectile.remove();
                 }
             }
         }
