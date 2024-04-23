@@ -53,42 +53,87 @@ public class UserControls implements KeyListener {
 
     private void playStateKeyPressed(int code) {
 
-        if(code == KeyEvent.VK_E) {
-            ref.ePressed = true;
+        if(ref.settings.gameDrawState == ref.settings.characterDrawState) {
+            characterDrawState(code);
         }
-        if(code == KeyEvent.VK_F) {
-            ref.fPressed = true;
-        }
+        else {
+            if(code == KeyEvent.VK_E) {
+                ref.ePressed = true;
+            }
+            if(code == KeyEvent.VK_F) {
+                ref.fPressed = true;
+            }
 
-        if(code == KeyEvent.VK_W) {
-            ref.upPressed = true;
-        }
-        if(code == KeyEvent.VK_A) {
-            ref.leftPressed = true;
-        }
-        if(code == KeyEvent.VK_S) {
-            ref.downPressed = true;
-        }
-        if(code == KeyEvent.VK_D) {
-            ref.rightPressed = true;
-        }
-        if(code == KeyEvent.VK_SHIFT) {
-            ref.shiftPressed = true;
-        }
-        if(code == KeyEvent.VK_F1) {
-            ref.settings.debug = !ref.settings.debug;
-        }
-        if(code == KeyEvent.VK_SPACE) {
-            if(!ref.spacePressed){
-                ref.spacePressed = true;
+            if(code == KeyEvent.VK_W) {
+                ref.upPressed = true;
+            }
+            if(code == KeyEvent.VK_A) {
+                ref.leftPressed = true;
+            }
+            if(code == KeyEvent.VK_S) {
+                ref.downPressed = true;
+            }
+            if(code == KeyEvent.VK_D) {
+                ref.rightPressed = true;
+            }
+            if(code == KeyEvent.VK_SHIFT) {
+                ref.shiftPressed = true;
+            }
+            if(code == KeyEvent.VK_F1) {
+                ref.settings.debug = !ref.settings.debug;
+            }
+            if(code == KeyEvent.VK_SPACE) {
+                if(!ref.spacePressed){
+                    ref.spacePressed = true;
+                }
+            }
+            if(code == KeyEvent.VK_ENTER) {
+                ref.enterPressed = true;
+            }
+            if(code == KeyEvent.VK_C) {
+
+                if(ref.settings.gameDrawState == ref.settings.characterDrawState) {
+                    ref.settings.gameDrawState = ref.settings.playDrawState;
+                }
+                else {
+                    ref.settings.gameDrawState = ref.settings.characterDrawState;
+                }
             }
         }
-        if(code == KeyEvent.VK_ENTER) {
-            ref.enterPressed = true;
-        }
-
     }
 
+    private void characterDrawState(int code) {
+        if(code == KeyEvent.VK_C) {
+            ref.settings.gameDrawState = ref.settings.playDrawState;
+        }
+        if(code == KeyEvent.VK_SPACE){
+
+        }
+        if(code == KeyEvent.VK_W) {
+            if(ref.ui.slotRow != 0) {
+                ref.ui.slotRow--;
+                ref.soundEngine.playSE("cursor");
+            }
+        }
+        if(code == KeyEvent.VK_S) {
+            if(ref.ui.slotRow != 3) {
+                ref.ui.slotRow++;
+                ref.soundEngine.playSE("cursor");
+            }
+        }
+        if(code == KeyEvent.VK_A){
+            if(ref.ui.slotCol != 0) {
+                ref.ui.slotCol--;
+                ref.soundEngine.playSE("cursor");
+            }
+        }
+        if(code == KeyEvent.VK_D) {
+            if(ref.ui.slotCol != 4) {
+                ref.ui.slotCol++;
+                ref.soundEngine.playSE("cursor");
+            }
+        }
+    }
 
 
     @Override
@@ -122,7 +167,6 @@ public class UserControls implements KeyListener {
         if(code == KeyEvent.VK_ENTER) {
             ref.enterPressed = false;
         }
-
     }
 
 

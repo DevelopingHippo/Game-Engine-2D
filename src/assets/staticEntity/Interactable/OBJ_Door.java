@@ -26,8 +26,8 @@ public class OBJ_Door extends InteractableEntity {
         setupImages();
     }
     public void setupImages() {
-        image = Utils.setupImage("/Images/Assets/Objects/door_closed", ref.settings.tileSize, ref.settings.tileSize);
-        image2 = Utils.setupImage("/Images/Assets/Objects/door_open", ref.settings.tileSize, ref.settings.tileSize);
+        image = Utils.setupImage("/Images/Assets/Items/door_closed", ref.settings.tileSize, ref.settings.tileSize);
+        image2 = Utils.setupImage("/Images/Assets/Items/door_open", ref.settings.tileSize, ref.settings.tileSize);
     }
 
     public void interact() {

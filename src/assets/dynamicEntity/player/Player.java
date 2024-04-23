@@ -18,6 +18,8 @@ public class Player extends DynamicEntity {
     private int interactLock = 0;
     public PlayerActions actions;
     public boolean speakSE = false;
+    public PlayerStats stats = new PlayerStats(this);
+    public PlayerBackpack backpack = new PlayerBackpack(this);
 
     public Player(ReferenceList ref) {
         super(ref);
@@ -29,6 +31,7 @@ public class Player extends DynamicEntity {
         collisionBoxDefaultY = 20;
         collisionBox = new Rectangle(collisionBoxDefaultX, collisionBoxDefaultY, (int) (ref.settings.tileSize / 1.5), ref.settings.tileSize / 2);
         actions.getPlayerImages();
+        stats.setupPlayerStats();
     }
 
 

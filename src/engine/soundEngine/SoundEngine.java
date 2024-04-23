@@ -25,6 +25,7 @@ public class SoundEngine {
         soundCollection.put("fishing_caught", new Sound("/Sounds/SoundEffects/fishing_caught.wav"));
         soundCollection.put("fishing_received", new Sound("/Sounds/SoundEffects/fishing_received.wav"));
         soundCollection.put("npc_speak", new Sound("/Sounds/SoundEffects/npc_speak.wav"));
+        soundCollection.put("cursor", new Sound("/Sounds/SoundEffects/cursor.wav"));
     }
 
 

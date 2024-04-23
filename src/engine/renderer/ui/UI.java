@@ -1,5 +1,6 @@
 package engine.renderer.ui;
 
+import assets.items.Item;
 import engine.helpers.ReferenceList;
 
 import java.awt.*;
@@ -16,6 +17,8 @@ public class UI {
     public String currentDialogue = "";
     ArrayList<String> message = new ArrayList<>();
     ArrayList<Integer> messageCounter = new ArrayList<>();
+    public int slotCol = 0;
+    public int slotRow = 0;
 
     public UI(ReferenceList ref) {
         this.ref = ref;
@@ -106,8 +109,10 @@ public class UI {
     }
 
     private void characterState() {
-
+        drawCharacterScreen();
+        drawBackpackScreen();
     }
+
 
 
     private void drawDialogueScreen() {
@@ -149,6 +154,160 @@ public class UI {
             }
         }
     }
+
+    private void drawCharacterScreen() {
+        // CREATE FRAME
+        final int frameX = ref.settings.tileSize;
+        final int frameY = ref.settings.tileSize;
+        final int frameWidth = ref.settings.tileSize * 5;
+        final int frameHeight = ref.settings.tileSize * 10;
+        drawSubWindow(frameX, frameY, frameWidth, frameHeight);
+
+        // TEXT
+        g2.setColor(Color.white);
+        g2.setFont(g2.getFont().deriveFont(32F));
+
+        int textX = frameX + 20;
+        int textY = frameY + ref.settings.tileSize;
+        final int lineHeight = 35;
+
+        g2.drawString("Level", textX, textY);
+        textY += lineHeight;
+        g2.drawString("Health", textX, textY);
+        textY += lineHeight;
+        g2.drawString("Strength", textX, textY);
+        textY += lineHeight;
+        g2.drawString("Dexterity", textX, textY);
+        textY += lineHeight;
+        g2.drawString("Attack", textX, textY);
+        textY += lineHeight;
+        g2.drawString("Defense", textX, textY);
+        textY += lineHeight;
+        g2.drawString("XP", textX, textY);
+        textY += lineHeight;
+        g2.drawString("Coin", textX, textY);
+        textY += lineHeight + 20;
+        g2.drawString("Weapon", textX, textY);
+        textY += lineHeight + 15;
+        g2.drawString("Armor", textX, textY);
+
+
+        // VALUES
+        int tailX = (frameX + frameWidth) - 30;
+        textY = frameY + ref.settings.tileSize;
+        String value;
+
+        value = String.valueOf(ref.player.stats.level);
+        textX = getXforAlignToRight(value, tailX);
+        g2.drawString(value, textX, textY);
+        textY += lineHeight;
+
+        value = ref.player.stats.currentHealth + "/" + ref.player.stats.maxHealth;
+        textX = getXforAlignToRight(value, tailX);
+        g2.drawString(value, textX, textY);
+        textY += lineHeight;
+
+        value = String.valueOf(ref.player.stats.strength);
+        textX = getXforAlignToRight(value, tailX);
+        g2.drawString(value, textX, textY);
+        textY += lineHeight;
+
+        value = String.valueOf(ref.player.stats.dexterity);
+        textX = getXforAlignToRight(value, tailX);
+        g2.drawString(value, textX, textY);
+        textY += lineHeight;
+
+        value = String.valueOf(ref.player.stats.attackPower);
+        textX = getXforAlignToRight(value, tailX);
+        g2.drawString(value, textX, textY);
+        textY += lineHeight;
+
+        value = String.valueOf(ref.player.stats.defensePower);
+        textX = getXforAlignToRight(value, tailX);
+        g2.drawString(value, textX, textY);
+        textY += lineHeight;
+
+        value = ref.player.stats.totalXP + "/" + ref.player.stats.xpToNextLevel;
+        textX = getXforAlignToRight(value, tailX);
+        g2.drawString(value, textX, textY);
+        textY += lineHeight;
+
+        value = String.valueOf(ref.player.stats.currency);
+        textX = getXforAlignToRight(value, tailX);
+        g2.drawString(value, textX, textY);
+        textY += ref.settings.tileSize;
+
+        g2.drawImage(ref.player.stats.currentWeapon.image, tailX - ref.settings.tileSize, textY - 27, null);
+        textY += ref.settings.tileSize;
+
+        g2.drawImage(ref.player.stats.currentArmor.image, tailX - ref.settings.tileSize, textY - 27, null);
+    }
+
+
+    private void drawBackpackScreen() {
+        int frameX = (int) (ref.settings.tileSize * 13.5);
+        int frameY = ref.settings.tileSize;
+        int frameWidth = ref.settings.tileSize * 6;
+        int frameHeight = ref.settings.tileSize * 5;
+        drawSubWindow(frameX, frameY, frameWidth, frameHeight);
+
+        // SLOTS
+        final int slotXstart = frameX + 20;
+        final int slotYstart = frameY + 20;
+        int slotX = slotXstart;
+        int slotY = slotYstart;
+        int slotSize = ref.settings.tileSize;
+
+        // DRAW CURSOR
+        int cursorX = slotXstart + (slotSize * slotCol);
+        int cursorY = slotYstart + (slotSize * slotRow);
+        int cursorWidth = slotSize;
+        int cursorHeight = slotSize;
+
+        g2.setColor(Color.white);
+        g2.setStroke(new BasicStroke(3));
+        g2.drawRoundRect(cursorX, cursorY, cursorWidth, cursorHeight, 10, 10);
+
+        for(Item item : ref.player.backpack.getBackpack()){
+            if(item != null){
+                g2.drawImage(item.image, slotX, slotY, null);
+                slotX += slotSize;
+                if(slotX >= slotXstart + (slotSize * 5)) {
+                    slotY += slotSize;
+                    slotX = slotXstart;
+                }
+            }
+        }
+
+        // DRAW DESCRIPTION FRAME
+        int dFrameX = frameX;
+        int dFrameY = frameY + frameHeight;
+        int dFrameWidth = frameWidth;
+        int dFrameHeight = ref.settings.tileSize * 3;
+
+        drawSubWindow(dFrameX, dFrameY, dFrameWidth, dFrameHeight);
+
+        // DRAW DESCRIPTION TEXT
+        int textX = dFrameX + 20;
+        int textY = dFrameY + ref.settings.tileSize;
+        g2.setFont(g2.getFont().deriveFont(Font.PLAIN, 26F));
+
+        if(getHoveredItem() != 999){
+            for(String line : ref.player.backpack.getItemFromBackpack(getHoveredItem()).description.split("\n")){
+                g2.drawString(line, textX,textY);
+                textY += 26;
+            }
+        }
+    }
+
+    private int getHoveredItem() {
+        int itemIndex = slotCol + (slotRow * 5);
+        if(itemIndex < ref.player.backpack.getBackpack().size()) {
+            return itemIndex;
+        }
+        return 999;
+    }
+
 
     private void drawSubWindow(int x, int y, int width, int height) {
         Color c = new Color(0, 0, 0, 210);

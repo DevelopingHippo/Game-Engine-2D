@@ -29,8 +29,8 @@ public class OBJ_Stairs extends InteractableEntity {
         setupImages();
     }
     public void setupImages() {
-        image = Utils.setupImage("/Images/Assets/Objects/stairs_up", ref.settings.tileSize, ref.settings.tileSize);
-        image2 = Utils.setupImage("/Images/Assets/Objects/stairs_down", ref.settings.tileSize, ref.settings.tileSize);
+        image = Utils.setupImage("/Images/Assets/Items/stairs_up", ref.settings.tileSize, ref.settings.tileSize);
+        image2 = Utils.setupImage("/Images/Assets/Items/stairs_down", ref.settings.tileSize, ref.settings.tileSize);
     }
 
     public void interact() {

@@ -1,5 +1,6 @@
 package assets.dynamicEntity.player;
 
+import assets.items.food.Goldfish;
 import engine.helpers.ReferenceList;
 import engine.helpers.Utils;
 
@@ -53,6 +54,7 @@ public class PlayerActions {
             if(ref.ePressed && !player.receiveFish && !player.isMoving){
                 ref.soundEngine.stopSE("fishing_caught");
                 ref.soundEngine.playSE("fishing_received");
+                player.backpack.addItemToBackpack(new Goldfish(ref));
                 player.receiveFish = true;
                 player.fishLockCount = 0;
                 caughtFish = false;

@@ -75,6 +75,40 @@ public class Animation {
         return image;
     }
 
+
+    public BufferedImage walkAnimation1f() {
+        BufferedImage image = null;
+        switch(entity.direction) {
+            case "up":
+                if (entity.spriteNum == 1) { image = entity.up1; }
+                if (entity.spriteNum == 2) { image = entity.up1; }
+                if (entity.spriteNum == 3) { image = entity.up1; }
+                if (entity.spriteNum == 4) { image = entity.up1; }
+                break;
+            case "down":
+                if(entity.spriteNum == 1) { image = entity.down1; }
+                if(entity.spriteNum == 2) { image = entity.down1; }
+                if (entity.spriteNum == 3) { image = entity.down1; }
+                if (entity.spriteNum == 4) { image = entity.down1; }
+                break;
+            case "left":
+                if (entity.spriteNum == 1) { image = entity.left1; }
+                if (entity.spriteNum == 2) { image = entity.left1; }
+                if (entity.spriteNum == 3) { image = entity.left1; }
+                if (entity.spriteNum == 4) { image = entity.left1; }
+                break;
+            case "right":
+                if (entity.spriteNum == 1) { image = entity.right1; }
+                if (entity.spriteNum == 2) { image = entity.right1; }
+                if (entity.spriteNum == 3) { image = entity.right1; }
+                if (entity.spriteNum == 4) { image = entity.right1; }
+                break;
+            case "idle":
+                image = entity.idle;
+        }
+        return image;
+    }
+
     public BufferedImage upBlink3f() {
         BufferedImage image = null;
         if (entity.spriteNum == 1) { image = entity.up1; }

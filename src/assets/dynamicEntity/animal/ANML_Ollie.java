@@ -24,17 +24,13 @@ public class ANML_Ollie extends DynamicEntity {
 
 
     private void getOllieImages() {
-        up1 = Utils.setupImage("/Images/Assets/NPC/OldMan/Walking/up1", ref.settings.tileSize, ref.settings.tileSize);
-        up2 = Utils.setupImage("/Images/Assets/NPC/OldMan/Walking/up2", ref.settings.tileSize, ref.settings.tileSize);
+        up1 = Utils.setupImage("/Images/Assets/Animals/Ollie/ollie_up_1", ref.settings.tileSize, ref.settings.tileSize);
 
-        down1 = Utils.setupImage("/Images/Assets/NPC/OldMan/Walking/down1", ref.settings.tileSize, ref.settings.tileSize);
-        down2 = Utils.setupImage("/Images/Assets/NPC/OldMan/Walking/down2", ref.settings.tileSize, ref.settings.tileSize);
+        down1 = Utils.setupImage("/Images/Assets/Animals/Ollie/ollie_down_1", ref.settings.tileSize, ref.settings.tileSize);
 
-        left1 = Utils.setupImage("/Images/Assets/NPC/OldMan/Walking/left1", ref.settings.tileSize, ref.settings.tileSize);
-        left2 = Utils.setupImage("/Images/Assets/NPC/OldMan/Walking/left2", ref.settings.tileSize, ref.settings.tileSize);
+        left1 = Utils.setupImage("/Images/Assets/Animals/Ollie/ollie_left_1", ref.settings.tileSize, ref.settings.tileSize);
 
-        right1 = Utils.setupImage("/Images/Assets/NPC/OldMan/Walking/right1", ref.settings.tileSize, ref.settings.tileSize);
-        right2 = Utils.setupImage("/Images/Assets/NPC/OldMan/Walking/right2", ref.settings.tileSize, ref.settings.tileSize);
+        right1 = Utils.setupImage("/Images/Assets/Animals/Ollie/ollie_right_1", ref.settings.tileSize, ref.settings.tileSize);
         idle = down1;
     }
 
@@ -54,7 +50,7 @@ public class ANML_Ollie extends DynamicEntity {
         if (isInPlayerVision()) {
 
             if(ref.player.isMoving){
-                image = animation.walkAnimation2f();
+                image = animation.walkAnimation1f();
             }
             else {
                 image = animation.idleAnimation();

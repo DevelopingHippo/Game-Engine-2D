@@ -124,4 +124,14 @@ public class AssetManager {
     }
 
 
+    public void spawnTestAssets() {
+
+        spawnAsset("Old Man", 27, 13);
+        spawnAsset("Door", 11, 27);
+        spawnAsset("Dan", 20, 241);
+        //ref.assetManager.spawnAsset("Ollie", 26, 11);
+
+        spawnStairs(12, 21, 12, 238);
+
+    }
 }
