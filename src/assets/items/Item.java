@@ -20,6 +20,9 @@ public class Item {
         this.type = type;
     }
 
+    public void useItem() {
+
+    }
 
 
 }

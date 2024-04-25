@@ -4,7 +4,8 @@ public class Settings {
 
 
 
-    public int fps = 144;
+    public int engineUpdateRate = 60;
+    public int renderFPSRate = 144;
 
     public String backgroundColor = "#3B8FCA";
 

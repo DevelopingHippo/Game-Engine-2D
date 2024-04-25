@@ -107,7 +107,13 @@ public class UserControls implements KeyListener {
             ref.settings.gameDrawState = ref.settings.playDrawState;
         }
         if(code == KeyEvent.VK_SPACE){
+            if(ref.ui.getHoveredItem() != 999){
+                ref.player.backpack.getItemFromBackpack(ref.ui.getHoveredItem()).useItem();
 
+                if(ref.player.backpack.getItemFromBackpack(ref.ui.getHoveredItem()).type.equals("Food")) {
+                    ref.player.backpack.removeItemFromBackpack(ref.ui.getHoveredItem());
+                }
+            }
         }
         if(code == KeyEvent.VK_W) {
             if(ref.ui.slotRow != 0) {

@@ -8,8 +8,13 @@ public class Goldfish extends Food{
         super(ref);
         name = "Goldfish";
         description = "[" + name +"]"+"\nFresh Goldfish from\nthe lake!";
+        healthIncrease = 10;
+        manaIncrease = 10;
+        staminaIncrease = 10;
         setup();
     }
+
+
 
 
     private void setup() {

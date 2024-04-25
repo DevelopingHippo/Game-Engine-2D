@@ -56,7 +56,6 @@ public class Monster extends DynamicEntity {
     public void takeDamage(Asset source, boolean player) {
 
         if(player) {
-
             if(source.type.equals("Projectile")) {
                 if(currentHealth <= ref.player.stats.spellPower) {
                     isDying = true;
@@ -67,11 +66,6 @@ public class Monster extends DynamicEntity {
                     damageReaction();
                 }
             }
-            else {
-
-            }
-
         }
-
     }
 }

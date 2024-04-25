@@ -11,6 +11,7 @@ public class NPC_OldMan extends NPC {
         name = "Old Man";
         collisionBoxDefaultX = 0;
         collisionBoxDefaultY = 0;
+        moveSpeed = 1;
         collisionBox = new Rectangle(collisionBoxDefaultX, collisionBoxDefaultY, ref.settings.tileSize, ref.settings.tileSize);
         getOldManImages();
         setDialogue();

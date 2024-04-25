@@ -11,7 +11,6 @@ public class Dan extends NPC {
 
     public Dan(ReferenceList ref) {
         super(ref);
-
         collisionBoxDefaultX = 0;
         collisionBoxDefaultY = 0;
         collisionBox = new Rectangle(collisionBoxDefaultX, collisionBoxDefaultY, ref.settings.tileSize, ref.settings.tileSize * 2);

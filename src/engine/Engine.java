@@ -1,11 +1,9 @@
 package engine;
 
 import assets.Asset;
-import assets.dynamicEntity.monster.Monster;
 import assets.dynamicEntity.particle.Particle;
 import assets.projectile.Projectile;
 import engine.helpers.ReferenceList;
-import engine.helpers.Settings;
 
 import javax.swing.*;
 import java.awt.*;
@@ -49,7 +47,7 @@ public class Engine extends JPanel implements Runnable  {
 
     @Override
     public void run() {
-        double drawInterval = (double) 1000000000 / ref.settings.fps;
+        double drawInterval = (double) 1000000000 / ref.settings.renderFPSRate;
         double delta = 0;
         long lastTime = System.nanoTime();
         long currentTime;
@@ -60,9 +58,10 @@ public class Engine extends JPanel implements Runnable  {
             lastTime = currentTime;
             if(delta >= 1) {
                 update();
-                repaint();
                 delta--;
+                repaint();
             }
+
         }
     }
 

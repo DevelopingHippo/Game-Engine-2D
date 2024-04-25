@@ -17,7 +17,7 @@ public class PlayerActions {
     public int fishActionMagicNumber;
     public int fishActionNum = 0;
     private boolean catchingFishSE = false;
-    private int regenCounter = 0;
+
 
 
     public PlayerActions(ReferenceList ref, Player player) {
@@ -84,36 +84,6 @@ public class PlayerActions {
         }
     }
 
-    public void regenResources() {
-
-        regenCounter++;
-
-        if(regenCounter % 72 == 0) {
-            if(player.stats.currentHealth < player.stats.maxHealth){
-                player.stats.currentHealth++;
-            }
-            if(player.stats.currentStamina < player.stats.maxStamina){
-                player.stats.currentStamina++;
-            }
-            if(player.stats.currentMana < player.stats.maxMana){
-                player.stats.currentMana++;
-            }
-
-            if(player.stats.currentMana > player.stats.maxMana) {
-                player.stats.currentMana = player.stats.maxMana;
-            }
-            if(player.stats.currentHealth > player.stats.maxHealth) {
-                player.stats.currentHealth = player.stats.maxHealth;
-            }
-            if(player.stats.currentStamina > player.stats.maxStamina){
-                player.stats.currentStamina = player.stats.maxStamina;
-            }
-        }
-        if(regenCounter > 144) {
-            regenCounter = 0;
-        }
-    }
-
 
     public void checkPlayerMovement() {
         if(ref.upPressed){
@@ -133,9 +103,15 @@ public class PlayerActions {
             player.isMoving = true;
         }
         if(ref.shiftPressed){
-            player.spriteCounter++;
-            player.isSprinting = true;
-            player.moveSpeed = ref.settings.playerSprintSpeed;
+            if(player.stats.currentStamina > 0){
+                player.spriteCounter++;
+                player.isSprinting = true;
+                player.moveSpeed = ref.settings.playerSprintSpeed;
+                player.stats.sprintingDrainStamina();
+            }
+            else {
+                player.moveSpeed = ref.settings.playerDefaultMoveSpeed;
+            }
         }
         else {
             player.moveSpeed = ref.settings.playerDefaultMoveSpeed;

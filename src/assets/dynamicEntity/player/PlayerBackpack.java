@@ -46,4 +46,10 @@ public class PlayerBackpack {
     public ArrayList<Item> getBackpack() {
         return backpack;
     }
+    public void removeItemFromBackpack(Item item) {
+        backpack.remove(item);
+    }
+    public void removeItemFromBackpack(int item) {
+        backpack.remove(item);
+    }
 }

@@ -52,6 +52,10 @@ public class PlayerStats {
 
     public int currency = 5;
 
+
+    private int staminaCounter;
+
+
     public void setupPlayerStats() {
         player.backpack.addItemToBackpack(new IronSword(this.player.ref));
         player.backpack.addItemToBackpack(new IronArmor(this.player.ref));
@@ -89,5 +93,17 @@ public class PlayerStats {
             }
             xpToNextLevel = (int) (xpToNextLevel * 1.5);
         }
+    }
+
+    public void sprintingDrainStamina() {
+        staminaCounter++;
+        if(staminaCounter % 12 == 0) {
+            currentStamina -= 1;
+            if(currentStamina <= 0) {
+                currentStamina = 0;
+            }
+        }
+
+
     }
 }

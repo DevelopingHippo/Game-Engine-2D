@@ -12,7 +12,7 @@ public class MON_GreenSlime extends Monster {
         super(ref);
         name = "Green Slime";
         getSlimeImages();
-
+        moveSpeed = 1;
         collidable = true;
         collisionBoxDefaultX = 0;
         collisionBoxDefaultY = (ref.settings.tileSize / 2);
@@ -34,7 +34,6 @@ public class MON_GreenSlime extends Monster {
 
     public void setAction() {
         actionLockCounter++;
-
         if(actionLockCounter == 288) {
             Random random = new Random();
             int i = random.nextInt(100)+1;
@@ -85,8 +84,6 @@ public class MON_GreenSlime extends Monster {
             if(isDying){
                 deathAnimation(g2);
             }
-
-
             g2.drawImage(image, screenX, screenY, ref.settings.tileSize, ref.settings.tileSize, null);
             changeAlpha(g2, 1f);
         }

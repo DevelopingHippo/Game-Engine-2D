@@ -352,7 +352,7 @@ public class UI {
         }
     }
 
-    private int getHoveredItem() {
+    public int getHoveredItem() {
         int itemIndex = slotCol + (slotRow * 5);
         if(itemIndex < ref.player.backpack.getBackpack().size()) {
             return itemIndex;

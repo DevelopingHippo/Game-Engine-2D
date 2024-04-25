@@ -20,6 +20,7 @@ public class Player extends DynamicEntity {
     public boolean speakSE = false;
     public PlayerStats stats = new PlayerStats(this);
     public PlayerBackpack backpack = new PlayerBackpack(this);
+    public PlayerEffects effects = new PlayerEffects(this);
 
     public Player(ReferenceList ref) {
         super(ref);
@@ -70,7 +71,7 @@ public class Player extends DynamicEntity {
     }
 
     public void counterIncrease() {
-        actions.regenResources();
+        effects.regenResources();
         if(interacted){
             interactLock++;
             if(interactLock > 72){
